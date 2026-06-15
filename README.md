@@ -1,36 +1,123 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Web-Based Interactive Learning Platform for Visualizing CPU Scheduling and Memory Management Algorithms
 
-## Getting Started
+## Project Title
+Design, Implementation and Evaluation of a Web-Based Interactive Learning Platform for Visualizing CPU Scheduling and Memory Management Algorithms
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Overview
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This project is an interactive web-based educational platform designed to help students better understand Operating System concepts through visualization and simulation.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+It focuses on two major areas:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- CPU Scheduling Algorithms
+- Memory Management Algorithms
 
-## Learn More
+Instead of learning these concepts purely from theory, users can visually observe how algorithms execute step-by-step in real time.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Objectives
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The main objectives of this project are:
 
-## Deploy on Vercel
+- To design an interactive learning system for Operating System concepts
+- To visualize CPU scheduling algorithms step-by-step
+- To simulate memory allocation and paging techniques
+- To improve student understanding through interactive learning
+- To evaluate the effectiveness of the platform compared to traditional learning methods
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Features
+
+###  CPU Scheduling Module
+- FCFS (First Come First Serve)
+- SJF (Shortest Job First)
+- Round Robin
+- Priority Scheduling
+- SRTF (Shortest Remaining Time First)
+
+Features include:
+- Gantt chart visualization
+- Waiting time calculation
+- Turnaround time calculation
+- Step-by-step execution animation
+
+---
+
+###  Memory Management Module
+- First Fit
+- Best Fit
+- Worst Fit
+- Next Fit
+
+Features include:
+- Memory block visualization
+- Allocation and deallocation simulation
+- Fragmentation display
+
+---
+
+###  Paging Simulation Module
+- FIFO Page Replacement
+- LRU Page Replacement
+- Optimal Page Replacement
+
+Features:
+- Page fault tracking
+- Page hit tracking
+- Frame-by-frame visualization
+
+---
+
+###  Learning Module
+- Explanation of each algorithm
+- Advantages and disadvantages
+- Real-world applications
+
+---
+
+###  Assessment Module
+- Multiple choice questions (MCQs)
+- Instant feedback
+- Score tracking
+
+---
+
+###  Evaluation Module
+- Performance comparison between:
+  - Traditional learning (notes)
+  - Interactive platform learning
+- Data visualization of results
+
+---
+
+##  Tech Stack
+
+### Frontend
+- Next.js
+- TypeScript
+- Tailwind CSS
+- Framer Motion (animations)
+- Recharts (data visualization)
+
+### Backend
+- Next.js API Routes
+
+### Database
+- PostgreSQL
+
+### ORM
+- Prisma
+
+### Authentication
+- NextAuth.js
+
+### Deployment
+- Vercel
+
+---
+
+## 🏗️ System Architecture
