@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Pacifico } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "./components/Navbar";
+import { Footer } from "./components/Footer";
 
 const paci = Pacifico({
   weight: "400",
@@ -22,11 +23,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${paci.className} h-full antialiased`}
+      className={`${paci.className} min-h-screen antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-screen flex flex-col">
         <Navbar />
-        {children}
+        <main className="flex-grow">{children}</main>
+        <Footer />
       </body>
     </html>
   );
