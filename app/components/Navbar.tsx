@@ -21,10 +21,6 @@ export function Navbar() {
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex items-center gap-3">
           <Logo />
-          <div className="hidden sm:block">
-            <p className="text-sm font-semibold text-white">VCSMMA</p>
-            <p className="text-[11px] uppercase tracking-[0.3em] text-slate-500">Interactive OS Lab</p>
-          </div>
         </Link>
 
         <nav className="hidden items-center gap-2 lg:flex">
