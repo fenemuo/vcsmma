@@ -6,22 +6,37 @@
 
 /* Animated gradient border for hero */
 .animated-border {
-	padding: 2px; /* thickness of the border */
+	padding: 4px; /* increase border thickness so it's visible */
 	border-radius: var(--vcsmma-border-radius);
-	background: linear-gradient(90deg,#7c3aed,#06b6d4,#7c3aed);
-	background-size: 200% 200%;
-	animation: vcsmma-gradient-shift 4s linear infinite;
+	background: linear-gradient(90deg, #7c3aed 0%, #06b6d4 40%, #38bdf8 70%, #a78bfa 100%);
+	background-size: 300% 100%;
+	animation: vcsmma-gradient-shift 3s linear infinite;
+	box-shadow: 0 30px 70px rgba(2,6,23,0.75), 0 8px 30px rgba(99,102,241,0.08);
+	position: relative;
 }
 
 .animated-border .inner {
-	border-radius: calc(var(--vcsmma-border-radius) - 2px);
-	background: rgba(2,6,23,0.6);
+	border-radius: calc(var(--vcsmma-border-radius) - 4px);
+	background: rgba(2,6,23,0.55);
 	padding: 1.5rem;
+	box-shadow: inset 0 1px 0 rgba(255,255,255,0.02), 0 40px 80px rgba(2,6,23,0.6);
 }
 
 @keyframes vcsmma-gradient-shift {
 	0% { background-position: 0% 50%; }
 	50% { background-position: 100% 50%; }
 	100% { background-position: 0% 50%; }
+}
+
+/* subtle outer glow for the animated border to increase legibility */
+.animated-border::after {
+	content: "";
+	position: absolute;
+	inset: -6px;
+	border-radius: calc(var(--vcsmma-border-radius) + 6px);
+	filter: blur(24px);
+	opacity: 0.25;
+	pointer-events: none;
+	background: linear-gradient(90deg, #7c3aed, #06b6d4, #38bdf8, #a78bfa);
 }
 

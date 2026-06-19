@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Pacifico } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
 
-const paci = Pacifico({
-  weight: "400",
+const inter = Inter({
+  weight: ["400", "700"],
   subsets: ["latin"],
 });
 
@@ -21,10 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${paci.className} min-h-screen antialiased`}
-    >
+      <html lang="en" className={`${inter.className} min-h-screen antialiased`}>
       <body className="min-h-screen flex flex-col">
         <Navbar />
         <main className="flex-grow">{children}</main>

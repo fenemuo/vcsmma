@@ -24,7 +24,7 @@ export default function MainHero({
   imageUrl?: string;
 }) {
   return (
-    <section className="animated-border mx-auto rounded-3xl">
+    <section className="animated-border mx-auto rounded-3xl shadow-2xl">
       <div className="inner grid gap-8 lg:grid-cols-2 items-center">
         <div className="space-y-6">
           <h1 className="text-4xl font-extrabold leading-tight text-slate-50 sm:text-5xl">{title}</h1>
@@ -55,7 +55,7 @@ export default function MainHero({
         </div>
 
         <div
-          className="relative hidden h-80 lg:block rounded-3xl bg-contain bg-no-repeat bg-center shadow-xl shadow-slate-950/50"
+          className="relative hidden h-80 lg:block rounded-3xl bg-cover bg-center shadow-2xl shadow-slate-950/60"
           style={{ backgroundImage: `url('${imageUrl}')` }}
         >
           <div className="absolute inset-0 rounded-3xl bg-slate-950/10" />
