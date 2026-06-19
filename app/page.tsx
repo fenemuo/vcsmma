@@ -5,6 +5,7 @@ import ExploreSection from "./components/ui/ExploreSection";
 export const metadata: Metadata = {
   title: "Home — VCSMMA",
   description: "VCSMMA — interactive operating systems lab for operating systems learning.",
+  authors: [{ name: "Francis Enemuo", url: "https://linkedin.com/in/franc-enemuo" }],
 };
 
 export default function Home() {
