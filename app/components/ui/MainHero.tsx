@@ -55,8 +55,9 @@ export default function MainHero({
         </div>
 
         <div
-          className="relative hidden h-80 lg:block rounded-3xl bg-cover bg-center shadow-2xl shadow-slate-950/60"
-          style={{ backgroundImage: `url('${imageUrl}')` }}
+          className="relative hidden md:block h-44 sm:h-56 md:h-72 lg:h-80 xl:h-96 rounded-3xl bg-cover bg-top lg:bg-center shadow-2xl shadow-slate-950/60"
+          style={{ backgroundImage: `url('${imageUrl}')`, backgroundPosition: 'center top' }}
+          aria-hidden="true"
         >
           <div className="absolute inset-0 rounded-3xl bg-slate-950/10" />
         </div>
