@@ -40,3 +40,15 @@ export function fcfs(processes: Process[]): Result[] {
         };
     });
 }
+
+export const exampleFcfsProcesses: Process[] = [
+    { id: "P1", arrival: 0, burst: 5 },
+    { id: "P2", arrival: 1, burst: 3 },
+    { id: "P3", arrival: 2, burst: 4 },
+];
+
+export const exampleFcfsResult = fcfs(exampleFcfsProcesses);
+
+// Example usage:
+// import { exampleFcfsResult } from "lib/algorithms/fcfs";
+// console.log(exampleFcfsResult);
