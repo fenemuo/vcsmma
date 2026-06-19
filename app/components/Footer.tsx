@@ -12,6 +12,7 @@ export function Footer() {
           <Link
             href="/simulator"
             className="inline-flex rounded-full bg-indigo-600 px-5 py-3 text-sm font-semibold text-white shadow-xl shadow-indigo-500/20 transition duration-200 hover:bg-indigo-500"
+            target="_blank"
           >
             Launch simulator
           </Link>
