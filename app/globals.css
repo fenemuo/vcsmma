@@ -1,1 +1,27 @@
 @import "tailwindcss";
+
+:root{
+	--vcsmma-border-radius: 1rem;
+}
+
+/* Animated gradient border for hero */
+.animated-border {
+	padding: 2px; /* thickness of the border */
+	border-radius: var(--vcsmma-border-radius);
+	background: linear-gradient(90deg,#7c3aed,#06b6d4,#7c3aed);
+	background-size: 200% 200%;
+	animation: vcsmma-gradient-shift 4s linear infinite;
+}
+
+.animated-border .inner {
+	border-radius: calc(var(--vcsmma-border-radius) - 2px);
+	background: rgba(2,6,23,0.6);
+	padding: 1.5rem;
+}
+
+@keyframes vcsmma-gradient-shift {
+	0% { background-position: 0% 50%; }
+	50% { background-position: 100% 50%; }
+	100% { background-position: 0% 50%; }
+}
+

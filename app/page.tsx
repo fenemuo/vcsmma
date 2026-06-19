@@ -1,28 +1,43 @@
 import type { Metadata } from "next";
-import { exampleFcfsResult } from "@/lib/algorithms/fcfs";
+import Link from "next/link";
+import MainHero from "./components/ui/MainHero";
+import ExploreGrid from "./components/ui/ExploreGrid";
 
 export const metadata: Metadata = {
   title: "Home — VCSMMA",
-  description: "Welcome to VCSMMA, your interactive lab for operating systems learning.",
+  description: "VCSMMA — interactive operating systems lab: simulators, quizzes, and learning.",
 };
 
 export default function Home() {
   return (
-    <main className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-      <section className="rounded-3xl border border-slate-800/80 bg-slate-950/90 p-8 text-slate-100 shadow-xl shadow-slate-950/30">
-        <h1 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-          Welcome to VCSMMA
-        </h1>
-        <p className="mt-4 max-w-2xl text-base leading-7 text-slate-400">
-          Start exploring the dashboard, simulators, learning content, quiz tools, and your profile.
-        </p>
+    <main className="mx-auto max-w-7xl px-6 py-12 lg:py-24">
+      <MainHero />
+
+      <section className="mt-12 rounded-3xl border border-slate-800 bg-slate-950/90 p-8 shadow-xl shadow-slate-950/30">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <h2 className="text-2xl font-semibold text-white">Explore</h2>
+            <p className="mt-2 text-sm text-slate-400">All the tools and learning resources in one place.</p>
+          </div>
+          <span className="rounded-full bg-slate-800 px-4 py-2 text-xs uppercase tracking-[0.24em] text-slate-300">
+            OS Lab Hub
+          </span>
+        </div>
+
+        <ExploreGrid
+          items={[
+            { href: "/simulator", title: "Simulators", description: "Interactive CPU & memory simulators — try FCFS, SJF, and more." },
+            { href: "/quiz", title: "Quizzes", description: "Test your knowledge with topic-focused quizzes." },
+            { href: "/learn", title: "Learning", description: "Guides and explanations to the underlying OS algorithms." },
+            { href: "/dashboard", title: "Dashboard", description: "Overview of your activity, saved simulations, and progress." },
+            { href: "/simulators", title: "Component Library", description: "Prebuilt UI components and charts for visualizing simulations." },
+            { href: "/profile", title: "Profile", description: "Track learning progress and saved simulations." },
+          ]}
+        />
       </section>
 
-      <section className="mt-8 rounded-3xl border border-slate-800/80 bg-slate-950/90 p-8 text-slate-100 shadow-xl shadow-slate-950/30">
-        <h2 className="text-2xl font-semibold tracking-tight text-white">FCFS Example Result</h2>
-        <pre className="mt-4 overflow-x-auto rounded-xl bg-slate-900/90 p-4 text-sm text-slate-200">
-          {JSON.stringify(exampleFcfsResult, null, 2)}
-        </pre>
+      <section className="mt-12 text-center text-sm text-slate-400">
+        <p>Built with Next.js • Prisma • Recharts • TailwindCSS</p>
       </section>
     </main>
   );
