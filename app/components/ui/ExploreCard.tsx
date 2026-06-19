@@ -1,10 +1,18 @@
 import Link from "next/link";
 
-export default function ExploreCard({ href, title, description }: { href: string; title: string; description: string }) {
+type ExploreCardProps = {
+  href: string;
+  title: string;
+  description: string;
+  delay?: number;
+};
+
+export default function ExploreCard({ href, title, description, delay = 0 }: ExploreCardProps) {
   return (
     <Link
       href={href}
-      className="group block overflow-hidden rounded-[28px] border border-slate-800/90 bg-slate-900/95 p-6 shadow-2xl shadow-slate-950/20 transition-transform duration-300 hover:-translate-y-1 hover:border-slate-700 hover:bg-slate-900"
+      style={{ animationDelay: `${delay}ms` }}
+      className="fade-in-up group block overflow-hidden rounded-[28px] border border-slate-800/90 bg-slate-900/95 p-6 shadow-2xl shadow-slate-950/20 transition-transform duration-300 hover:-translate-y-1 hover:border-slate-700 hover:bg-slate-900"
     >
       <div className="flex items-center justify-between gap-4">
         <div>

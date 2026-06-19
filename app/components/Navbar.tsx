@@ -17,10 +17,14 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-800/70 bg-slate-950/95 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-50 border-b border-slate-800/70 bg-slate-950/95 backdrop-blur-2xl shadow-slate-950/30 shadow-lg">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex items-center gap-3">
           <Logo />
+          <div className="hidden sm:block">
+            <p className="text-sm font-semibold text-white">VCSMMA</p>
+            <p className="text-[11px] uppercase tracking-[0.3em] text-slate-500">Interactive OS Lab</p>
+          </div>
         </Link>
 
         <nav className="hidden items-center gap-2 lg:flex">
@@ -28,11 +32,17 @@ export function Navbar() {
             <Link
               key={item.title}
               href={item.href}
-              className="rounded-full px-4 py-2 text-sm font-medium text-slate-200 transition-colors duration-200 hover:bg-slate-800 hover:text-white"
+              className="rounded-full border border-slate-800/80 bg-slate-900/90 px-4 py-2 text-sm font-medium text-slate-200 transition duration-200 hover:border-slate-700 hover:bg-slate-800 hover:text-white hover:shadow-lg"
             >
               {item.title}
             </Link>
           ))}
+          <Link
+            href="/simulator"
+            className="hidden rounded-full bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-indigo-500/20 transition duration-200 hover:bg-indigo-500 lg:inline-flex"
+          >
+            Launch Lab
+          </Link>
         </nav>
 
         <button
@@ -47,17 +57,24 @@ export function Navbar() {
 
       {isOpen && (
         <div className="border-t border-slate-800/70 bg-slate-950/98 lg:hidden">
-          <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 pb-4 pt-3 sm:px-6">
+          <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 pb-4 pt-3 sm:px-6">
             {navItems.map((item) => (
               <Link
                 key={item.title}
                 href={item.href}
-                className="rounded-2xl px-4 py-3 text-sm font-medium text-slate-200 transition-colors duration-200 hover:bg-slate-800 hover:text-white"
+                className="rounded-3xl border border-slate-800/75 bg-slate-900/95 px-4 py-3 text-sm font-medium text-slate-200 transition duration-200 hover:border-slate-700 hover:bg-slate-800 hover:text-white"
                 onClick={() => setIsOpen(false)}
               >
                 {item.title}
               </Link>
             ))}
+            <Link
+              href="/simulator"
+              className="rounded-3xl bg-indigo-600 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-500/20 transition duration-200 hover:bg-indigo-500"
+              onClick={() => setIsOpen(false)}
+            >
+              Launch Lab
+            </Link>
           </div>
         </div>
       )}

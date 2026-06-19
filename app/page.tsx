@@ -53,9 +53,6 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mt-12 text-center text-sm text-slate-400">
-        <p>Built with Next.js • Prisma • Recharts • TailwindCSS by <Link href="https://linkedin.com/in/franc-enemuo" className="text-slate-800 hover:text-indigo-600 hover:underline font-bold">Francis Enemuo</Link></p>
-      </section>
     </main>
   );
 }

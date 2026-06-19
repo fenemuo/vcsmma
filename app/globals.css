@@ -40,3 +40,19 @@
 	background: linear-gradient(90deg, #7c3aed, #06b6d4, #38bdf8, #a78bfa);
 }
 
+@keyframes fade-in-up {
+	0% {
+		opacity: 0;
+		transform: translateY(18px);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.fade-in-up {
+	animation: fade-in-up 0.7s ease-out forwards;
+	opacity: 0;
+}
+
