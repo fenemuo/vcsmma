@@ -17,10 +17,12 @@ export function priorityScheduling(processes: Process[]): PriorityResult[] {
   const result: PriorityResult[] = [];
   let currentTime = 0;
 
+  const getPriority = (process: Process) => process.priority;
+
   while (pending.length) {
     const available = pending.filter(p => p.arrival <= currentTime);
     const next = available.length
-      ? available.reduce((prev, cur) => (cur.priority < prev.priority ? cur : prev))
+      ? available.reduce((prev, cur) => (getPriority(cur) < getPriority(prev) ? cur : prev))
       : pending[0];
 
     const index = pending.indexOf(next);

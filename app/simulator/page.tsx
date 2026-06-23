@@ -19,9 +19,9 @@ export default function SimulatorPage() {
   const [algo, setAlgo] = useState<Algo>("fcfs");
   const [quantum, setQuantum] = useState(4);
   const [processes, setProcesses] = useState<Proc[]>([
-    { id: "P1", arrival: 0, burst: 5 },
-    { id: "P2", arrival: 1, burst: 3 },
-    { id: "P3", arrival: 2, burst: 4 },
+    { id: "P1", arrival: 0, burst: 5, priority: 1 },
+    { id: "P2", arrival: 1, burst: 3, priority: 2 },
+    { id: "P3", arrival: 2, burst: 4, priority: 3 },
   ]);
   const [results, setResults] = useState<any[] | null>(null);
 
@@ -34,7 +34,7 @@ export default function SimulatorPage() {
 
   function addProcess() {
     const nextId = `P${processes.length + 1}`;
-    setProcesses([...processes, { id: nextId, arrival: 0, burst: 1 }]);
+    setProcesses([...processes, { id: nextId, arrival: 0, burst: 1, priority: 1 }]);
   }
 
   function removeProcess(index: number) {
@@ -130,7 +130,7 @@ export default function SimulatorPage() {
                     <th className="pr-4">ID</th>
                     <th className="pr-4">Arrival</th>
                     <th className="pr-4">Burst</th>
-                    <th className="pr-4">Priority</th>
+                    {algo === "priority" && <th className="pr-4">Priority</th>}
                     <th className="pr-4">Start</th>
                     <th className="pr-4">Finish</th>
                     <th className="pr-4">Waiting</th>
@@ -143,7 +143,7 @@ export default function SimulatorPage() {
                       <td className="py-2">{r.id}</td>
                       <td>{r.arrival}</td>
                       <td>{r.burst}</td>
-                      <td>{r.priority ?? "-"}</td>
+                      {algo === "priority" && <td>{r.priority ?? "-"}</td>}
                       <td>{algo === "rr" ? (r.startTimes ? r.startTimes.join(", ") : "-") : r.start ?? "-"}</td>
                       <td>{r.finish}</td>
                       <td>{r.waiting}</td>
