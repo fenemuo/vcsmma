@@ -14,8 +14,8 @@ export default function ExploreSection() {
     <section id="explore" className="mx-auto max-w-6xl px-6 pb-20 pt-10 sm:px-10">
       <div className="mb-8 rounded-4xl border border-white/10 bg-slate-950/85 p-8 shadow-2xl shadow-slate-950/40">
         <p className="text-sm uppercase tracking-[0.4em] text-slate-400">Explore</p>
-        <h2 className="mt-4 text-3xl font-semibold text-white sm:text-4xl">
-          Pick a space to start learning OS concepts.
+        <h2 className="mt-4 text-md font-semibold text-white sm:text-lg">
+          Start learning OS concepts.
         </h2>
       </div>
 
