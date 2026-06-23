@@ -2,10 +2,10 @@ export interface Process {
   id: string;
   arrival: number;
   burst: number;
+  priority?: number;
 }
 
-export interface RoundRobinResult {
-  id: string;
+export interface RoundRobinResult extends Process {
   startTimes: number[];
   finish: number;
   waiting: number;
@@ -38,6 +38,9 @@ export function roundRobin(processes: Process[], quantum: number): RoundRobinRes
     if (!results.has(process.id)) {
       results.set(process.id, {
         id: process.id,
+        arrival: process.arrival,
+        burst: process.burst,
+        priority: process.priority,
         startTimes: [start],
         finish: 0,
         waiting: 0,
