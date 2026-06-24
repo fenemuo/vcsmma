@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { fcfs } from "@/lib/algorithms/fcfs";
 import { sjf } from "@/lib/algorithms/sjf";
 import { roundRobin } from "@/lib/algorithms/roundRobin";
 import { priorityScheduling } from "@/lib/algorithms/priority";
+import { GanttChart } from "@/app/components/gantt-chart/GanttChart";
 
 interface Proc {
   id: string;
@@ -122,7 +124,29 @@ export default function SimulatorPage() {
 
         {results && (
           <div className="mt-6">
-            <h3 className="font-medium">Results</h3>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="font-medium">Results</h3>
+              <Link
+                href="/learn#cpu-scheduling-breakdown"
+                className="text-sm text-blue-400 hover:text-blue-300 underline"
+              >
+                Learn how calculations work →
+              </Link>
+            </div>
+            
+            <div className="mt-4 mb-6">
+              <h4 className="text-sm font-medium mb-3">Gantt Chart</h4>
+              <GanttChart
+                tasks={results.map((r) => ({
+                  id: r.id,
+                  start: algo === "rr" ? r.startTimes : r.start,
+                  finish: r.finish,
+                  arrival: r.arrival,
+                }))}
+                maxTime={Math.max(...results.map((r) => r.finish))}
+              />
+            </div>
+
             <div className="mt-2 overflow-x-auto">
               <table className="w-full table-auto text-sm">
                 <thead>
