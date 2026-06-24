@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { AuthSessionProvider } from "./components/AuthSessionProvider";
 import "./globals.css";
 import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
@@ -23,9 +24,11 @@ export default function RootLayout({
   return (
       <html lang="en" className={`${inter.className} min-h-screen antialiased`}>
       <body className="min-h-screen flex flex-col">
-        <Navbar />
-        <main className="flex-grow">{children}</main>
-        <Footer />
+        <AuthSessionProvider>
+          <Navbar />
+          <main className="grow">{children}</main>
+          <Footer />
+        </AuthSessionProvider>
       </body>
     </html>
   );

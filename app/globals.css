@@ -51,6 +51,10 @@
 	}
 }
 
+button:hover {
+	cursor: pointer;
+}
+
 .fade-in-up {
 	animation: fade-in-up 0.7s ease-out forwards;
 	opacity: 0;

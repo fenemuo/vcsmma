@@ -163,6 +163,7 @@ export default function ImplementationPage() {
 │   │   ├── srtf.ts               # Shortest Remaining Time First
 │   │   ├── firstFit.ts           # Memory allocation
 │   │   ├── bestFit.ts            # Memory allocation
+│   │   ├── worstFit.ts           # Memory allocation
 │   │   ├── fifoPaging.ts         # Page replacement
 │   │   ├── lruPaging.ts          # Page replacement
 │   │   └── README.md
@@ -493,7 +494,7 @@ const [results, setResults] = useState&lt;any[] | null&gt;(null);`}</pre>
               <li>✅ Educational Content & Formulas</li>
               <li>✅ Responsive UI Design</li>
               <li>✅ Type-Safe Implementation</li>
-              <li>🔄 Memory Management Simulators (Planned)</li>
+              <li>✅ Memory Management Simulators (First Fit, Best Fit, Worst Fit)</li>
               <li>🔄 Paging Simulation Module (Planned)</li>
               <li>🔄 Quiz & Assessment (Scaffolding Complete)</li>
             </ul>
