@@ -54,6 +54,7 @@ export default function SimulatorPage() {
     { id: "P3", size: 3 },
   ]);
   const [results, setResults] = useState<any[] | null>(null);
+  const inputClass = "rounded border border-slate-700 bg-slate-800 px-2 py-1 text-slate-100 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20";
 
   function switchCategory(category: AlgoCategory) {
     setAlgoCategory(category);
@@ -208,7 +209,7 @@ export default function SimulatorPage() {
               <div className="mt-4 flex items-center gap-2">
                 <label className="font-medium">Quantum (ms)</label>
                 <input
-                  className="w-20 rounded p-1 text-black"
+                  className="w-20 rounded border border-slate-700 bg-slate-800 px-2 py-1 text-slate-100 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
                   type="number"
                   min={1}
                   value={quantum}
@@ -225,15 +226,15 @@ export default function SimulatorPage() {
             <div className="mt-2 space-y-2">
               {processes.map((p, i) => (
                 <div key={i} className="flex flex-wrap items-center gap-2">
-                  <input className="w-20 rounded p-1 text-black" value={p.id} onChange={(e) => updateProcess(i, "id", e.target.value)} />
+                  <input className="w-20 rounded border border-slate-700 bg-slate-800 px-2 py-1 text-slate-100 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" value={p.id} onChange={(e) => updateProcess(i, "id", e.target.value)} />
                   <label className="text-sm">Arrival</label>
-                  <input className="w-20 rounded p-1 text-black" type="number" value={p.arrival} onChange={(e) => updateProcess(i, "arrival", Number(e.target.value))} />
+                  <input className="w-20 rounded border border-slate-700 bg-slate-800 px-2 py-1 text-slate-100 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" type="number" value={p.arrival} onChange={(e) => updateProcess(i, "arrival", Number(e.target.value))} />
                   <label className="text-sm">Burst</label>
-                  <input className="w-20 rounded p-1 text-black" type="number" value={p.burst} onChange={(e) => updateProcess(i, "burst", Number(e.target.value))} />
+                  <input className="w-20 rounded border border-slate-700 bg-slate-800 px-2 py-1 text-slate-100 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" type="number" value={p.burst} onChange={(e) => updateProcess(i, "burst", Number(e.target.value))} />
                   {algo === "priority" && (
                     <>
                       <label className="text-sm">Priority</label>
-                      <input className="w-20 rounded p-1 text-black" type="number" value={p.priority ?? 1} onChange={(e) => updateProcess(i, "priority", Number(e.target.value))} />
+                      <input className="w-20 rounded border border-slate-700 bg-slate-800 px-2 py-1 text-slate-100 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" type="number" value={p.priority ?? 1} onChange={(e) => updateProcess(i, "priority", Number(e.target.value))} />
                     </>
                   )}
                   <button className="ml-auto rounded bg-red-600 px-2 py-1 text-sm" onClick={() => removeProcess(i)}>Remove</button>
@@ -253,9 +254,9 @@ export default function SimulatorPage() {
               <div className="mt-2 space-y-2">
                 {memoryBlocks.map((block, i) => (
                   <div key={i} className="flex flex-wrap items-center gap-2">
-                    <input className="w-24 rounded p-1 text-black" value={block.id} readOnly />
+                    <input className="w-24 rounded border border-slate-700 bg-slate-800 px-2 py-1 text-slate-100 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" value={block.id} readOnly />
                     <label className="text-sm">Size</label>
-                    <input className="w-24 rounded p-1 text-black" type="number" value={block.size} onChange={(e) => updateMemoryBlock(i, Number(e.target.value))} />
+                    <input className="w-24 rounded border border-slate-700 bg-slate-800 px-2 py-1 text-slate-100 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" type="number" value={block.size} onChange={(e) => updateMemoryBlock(i, Number(e.target.value))} />
                     <button className="ml-auto rounded bg-red-600 px-2 py-1 text-sm" onClick={() => removeMemoryBlock(i)}>Remove</button>
                   </div>
                 ))}
@@ -271,9 +272,9 @@ export default function SimulatorPage() {
               <div className="mt-2 space-y-2">
                 {memoryRequests.map((request, i) => (
                   <div key={i} className="flex flex-wrap items-center gap-2">
-                    <input className="w-24 rounded p-1 text-black" value={request.id} readOnly />
+                    <input className="w-24 rounded border border-slate-700 bg-slate-800 px-2 py-1 text-slate-100 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" value={request.id} readOnly />
                     <label className="text-sm">Size</label>
-                    <input className="w-24 rounded p-1 text-black" type="number" value={request.size} onChange={(e) => updateMemoryRequest(i, Number(e.target.value))} />
+                    <input className="w-24 rounded border border-slate-700 bg-slate-800 px-2 py-1 text-slate-100 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" type="number" value={request.size} onChange={(e) => updateMemoryRequest(i, Number(e.target.value))} />
                     <button className="ml-auto rounded bg-red-600 px-2 py-1 text-sm" onClick={() => removeMemoryRequest(i)}>Remove</button>
                   </div>
                 ))}
