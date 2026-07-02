@@ -35,6 +35,7 @@ export async function GET() {
         work: user.work,
         experience: user.experience,
         education: user.education,
+        expertise: user.expertise,
         profileImage: user.profileImage,
       },
       performances,
@@ -72,6 +73,7 @@ export async function PUT(request: NextRequest) {
         work: body.work || null,
         experience: body.experience || null,
         education: body.education || null,
+        expertise: body.expertise || null,
         profileImage: body.profileImage || user.profileImage,
       },
     });
@@ -86,6 +88,7 @@ export async function PUT(request: NextRequest) {
         work: updatedUser.work,
         experience: updatedUser.experience,
         education: updatedUser.education,
+        expertise: updatedUser.expertise,
         profileImage: updatedUser.profileImage,
       },
     });

@@ -14,6 +14,7 @@ type UserProfile = {
   work?: string;
   experience?: string;
   education?: string;
+  expertise?: string;
   profileImage?: string;
 };
 
@@ -41,6 +42,7 @@ export default function ProfileClient() {
     work: "",
     experience: "",
     education: "",
+    expertise: "",
   });
 
   useEffect(() => {
@@ -66,6 +68,7 @@ export default function ProfileClient() {
         work: data.user.work || "",
         experience: data.user.experience || "",
         education: data.user.education || "",
+        expertise: data.user.expertise || "",
       });
     } catch (error) {
       console.error("Error fetching profile:", error);
@@ -133,6 +136,7 @@ export default function ProfileClient() {
         work: profile.work || "",
         experience: profile.experience || "",
         education: profile.education || "",
+        expertise: profile.expertise || "",
       });
     }
     setIsEditing(false);
@@ -156,6 +160,14 @@ export default function ProfileClient() {
       console.error("Error deleting account:", error);
       alert("Failed to delete account. Please try again.");
     }
+  };
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const month = date.toLocaleString("en-US", { month: "long" }).toLowerCase();
+    const day = date.getDate();
+    const year = date.getFullYear();
+    return `${month} ${day} ${year}`;
   };
 
   if (status === "loading" || isLoading) {
@@ -358,9 +370,20 @@ export default function ProfileClient() {
               <h3 className="mb-3 text-lg font-bold uppercase tracking-wider text-emerald-400">
                 Expertise
               </h3>
-              <p className="text-sm text-slate-300">
-                Operating Systems • CPU Scheduling • Memory Management • Process Management
-              </p>
+              {isEditing ? (
+                <textarea
+                  name="expertise"
+                  value={formData.expertise}
+                  onChange={handleInputChange}
+                  placeholder="Add your areas of expertise (e.g., Operating Systems, CPU Scheduling, Memory Management)"
+                  className="w-full rounded bg-slate-800 px-3 py-2 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  rows={3}
+                />
+              ) : (
+                <p className="text-sm text-slate-300">
+                  {profile.expertise || "Operating Systems • CPU Scheduling • Memory Management • Process Management"}
+                </p>
+              )}
             </div>
 
             {/* Quiz Performance Section */}
@@ -379,7 +402,7 @@ export default function ProfileClient() {
                       className="flex items-center justify-between rounded-lg bg-slate-800/50 px-3 py-2 text-sm"
                     >
                       <span className="text-slate-300">
-                        {new Date(perf.completedAt).toLocaleDateString()}
+                        {formatDate(perf.completedAt)}
                       </span>
                       <div className="flex items-center gap-2">
                         <span
@@ -435,7 +458,7 @@ export default function ProfileClient() {
             {performances.map((perf) => (
               <div key={perf.id} className="rounded-xl border border-slate-800 bg-slate-900/70 p-4">
                 <p className="text-sm text-slate-400">
-                  {new Date(perf.completedAt).toLocaleDateString()}
+                  {formatDate(perf.completedAt)}
                 </p>
                 <div className="mt-3 flex items-center gap-2">
                   <span

@@ -19,6 +19,7 @@ model User {
   work         String?
   experience   String?
   education    String?
+  expertise    String?
   profileImage String?
 
   createdAt DateTime @default(now())
