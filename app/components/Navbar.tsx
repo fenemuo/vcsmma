@@ -15,10 +15,10 @@ const navItems = [
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const session = useSession();
+  const { data: session, status } = useSession();
 
-  const authLinks = session.status === "authenticated" ? [
-    { title: "Profile", href: "/profile" },
+  const authLinks = status === "authenticated" && session?.user ? [
+    { title: session.user.username || session.user.name || "Profile", href: "/profile" },
     { title: "Logout", href: "/auth/logout" },
   ] : [
     { title: "Login", href: "/auth/login" },
