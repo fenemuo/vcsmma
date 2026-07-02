@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import questionsData from "./questions.json";
+import QuizIntro from "./QuizIntro";
 
 type Difficulty = "Simple" | "Intermediate" | "Hard";
 
@@ -31,10 +32,30 @@ const DIFFICULTY_POINTS: Record<Difficulty, number> = {
 
 const TOTAL_QUESTIONS = 10;
 
+const getDifficultyTotals = () => {
+  const questions = questionsData as QuizQuestion[];
+  return questions.reduce(
+    (acc, question) => {
+      const difficulty = question.difficulty as Difficulty;
+      if (difficulty === "Simple") {
+        acc.Simple += 1;
+      } else if (difficulty === "Intermediate") {
+        acc.Intermediate += 1;
+      } else if (difficulty === "Hard") {
+        acc.Hard += 1;
+      }
+      return acc;
+    },
+    { Simple: 0, Intermediate: 0, Hard: 0 }
+  );
+};
+
 export default function QuizClient() {
   const [selectedQuestions, setSelectedQuestions] = useState<QuizQuestion[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [hasStarted, setHasStarted] = useState(false);
   const [currentLevel, setCurrentLevel] = useState<Difficulty>("Simple");
+  const [simpleCorrectStreak, setSimpleCorrectStreak] = useState(0);
   const [intermediateMistakes, setIntermediateMistakes] = useState(0);
   const [score, setScore] = useState(0);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
@@ -53,6 +74,11 @@ export default function QuizClient() {
     ? DIFFICULTY_TIMERS[currentQuestion.difficulty as Difficulty] ?? DIFFICULTY_TIMERS.Simple
     : DIFFICULTY_TIMERS.Simple;
   const progressPercent = Math.min(100, (questionNumber / TOTAL_QUESTIONS) * 100);
+  const totalPossiblePoints = 25;
+  const scoreLabel = `${score}/${totalPossiblePoints}`;
+  const percentage = totalPossiblePoints > 0 ? Math.round((score / totalPossiblePoints) * 100) : 0;
+  const isPassing = percentage >= 60;
+  const needsRestart = isComplete && percentage < 60;
 
   const pickQuestionForLevel = (level: Difficulty) => {
     const pool = (questionsData as QuizQuestion[]).filter(
@@ -99,7 +125,14 @@ export default function QuizClient() {
     }
 
     if (currentLevelValue === "Simple") {
-      setCurrentLevel(isCorrect ? "Intermediate" : "Simple");
+      if (isCorrect) {
+        const nextStreak = simpleCorrectStreak + 1;
+        setSimpleCorrectStreak(nextStreak);
+        setCurrentLevel(nextStreak >= 2 ? "Intermediate" : "Simple");
+      } else {
+        setSimpleCorrectStreak(0);
+        setCurrentLevel("Simple");
+      }
       return;
     }
 
@@ -111,6 +144,23 @@ export default function QuizClient() {
     }
 
     setCurrentLevel(isCorrect ? "Hard" : "Intermediate");
+  };
+
+  const restartQuiz = () => {
+    setSelectedQuestions([]);
+    setCurrentIndex(0);
+    setCurrentLevel("Simple");
+    setSimpleCorrectStreak(0);
+    setIntermediateMistakes(0);
+    setScore(0);
+    setSelectedOption(null);
+    setFeedback("");
+    setIsAnswered(false);
+    setIsComplete(false);
+    setTimeLeft(DIFFICULTY_TIMERS.Simple);
+    setUsedQuestionIds([]);
+    setResults([]);
+    setHasStarted(true);
   };
 
   const goToNextQuestion = () => {
@@ -142,6 +192,10 @@ export default function QuizClient() {
   };
 
   useEffect(() => {
+    if (!hasStarted || selectedQuestions.length > 0) {
+      return;
+    }
+
     if (selectedQuestions.length === 0) {
       const firstQuestion = pickQuestionForLevel("Simple");
 
@@ -151,7 +205,7 @@ export default function QuizClient() {
         setTimeLeft(DIFFICULTY_TIMERS.Simple);
       }
     }
-  }, [selectedQuestions.length, usedQuestionIds]);
+  }, [hasStarted, selectedQuestions.length, usedQuestionIds]);
 
   useEffect(() => {
     if (!currentQuestion || isComplete || isAnswered) {
@@ -174,6 +228,10 @@ export default function QuizClient() {
     return () => window.clearInterval(timer);
   }, [currentQuestion?.id, isComplete, isAnswered, timerDuration]);
 
+  if (!hasStarted) {
+    return <QuizIntro onStart={() => setHasStarted(true)} />;
+  }
+
   if (isComplete) {
     return (
       <main className="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8">
@@ -187,13 +245,55 @@ export default function QuizClient() {
                 You finished the adaptive challenge
               </h1>
             </div>
-            <div className="rounded-2xl border border-slate-800 bg-slate-900/70 px-4 py-3 text-center">
+            <div
+              className={`relative overflow-hidden rounded-2xl border px-4 py-3 text-center ${
+                isPassing
+                  ? "border-emerald-500/40 bg-emerald-500/10 shadow-[0_0_30px_rgba(16,185,129,0.2)]"
+                  : "border-slate-800 bg-slate-900/70"
+              }`}
+            >
+              {isPassing ? (
+                <>
+                  <span className="star-float star-one">★</span>
+                  <span className="star-float star-two">★</span>
+                  <span className="star-float star-three">★</span>
+                </>
+              ) : null}
               <p className="text-sm text-slate-400">Score</p>
-              <p className="text-3xl font-semibold text-white">{score}</p>
+              <p className="text-3xl font-semibold text-white">{scoreLabel}</p>
+              {isPassing ? (
+                <p className="mt-2 text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300">
+                  Passed!
+                </p>
+              ) : null}
             </div>
           </div>
 
           <p className="mt-6 max-w-2xl text-base leading-7 text-slate-400">{feedback}</p>
+
+          {needsRestart ? (
+            <div className="mt-8 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-amber-500/30 bg-amber-500/10 p-4 text-sm text-amber-200">
+              <p>You scored below 60%. Restart the quiz to try again.</p>
+              <button
+                type="button"
+                onClick={restartQuiz}
+                className="rounded-full bg-amber-400 px-4 py-2 font-semibold text-slate-950 transition hover:bg-amber-300"
+              >
+                Restart Quiz
+              </button>
+            </div>
+          ) : null}
+
+          <div className="mt-8 flex flex-wrap gap-4 rounded-2xl border border-slate-800 bg-slate-900/70 p-4 text-sm text-slate-300">
+            <div className="rounded-2xl border border-slate-800 bg-slate-950/80 px-4 py-3">
+              <p className="text-slate-400">Percentage</p>
+              <p className="text-2xl font-semibold text-white">{percentage}%</p>
+            </div>
+            <div className="rounded-2xl border border-slate-800 bg-slate-950/80 px-4 py-3">
+              <p className="text-slate-400">Pass mark</p>
+              <p className="text-2xl font-semibold text-white">60%</p>
+            </div>
+          </div>
 
           <div className="mt-8 grid gap-4 md:grid-cols-2">
             {results.map((entry, index) => (
@@ -238,9 +338,27 @@ export default function QuizClient() {
               Question {questionNumber} of {TOTAL_QUESTIONS}
             </h1>
           </div>
-          <div className="rounded-2xl border border-slate-800 bg-slate-900/70 px-4 py-3 text-center">
+          <div
+            className={`relative overflow-hidden rounded-2xl border px-4 py-3 text-center ${
+              isPassing
+                ? "border-emerald-500/40 bg-emerald-500/10 shadow-[0_0_30px_rgba(16,185,129,0.2)]"
+                : "border-slate-800 bg-slate-900/70"
+            }`}
+          >
+            {isPassing ? (
+              <>
+                <span className="star-float star-one">★</span>
+                <span className="star-float star-two">★</span>
+                <span className="star-float star-three">★</span>
+              </>
+            ) : null}
             <p className="text-sm text-slate-400">Score</p>
-            <p className="text-2xl font-semibold text-white">{score}</p>
+            <p className="text-2xl font-semibold text-white">{scoreLabel}</p>
+            {isPassing ? (
+              <p className="mt-2 text-[10px] font-semibold uppercase tracking-[0.3em] text-emerald-300">
+                Passed!
+              </p>
+            ) : null}
           </div>
         </div>
 
@@ -330,6 +448,45 @@ export default function QuizClient() {
           </button>
         </div>
       </section>
+      <style jsx>{`
+        .star-float {
+          position: absolute;
+          color: #fde68a;
+          font-size: 0.8rem;
+          opacity: 0;
+          animation: starPop 1.8s ease-in-out infinite;
+          text-shadow: 0 0 10px rgba(253, 230, 138, 0.7);
+        }
+        .star-one {
+          top: 0.2rem;
+          right: 0.45rem;
+          animation-delay: 0s;
+        }
+        .star-two {
+          top: 0.5rem;
+          left: 0.45rem;
+          animation-delay: 0.45s;
+        }
+        .star-three {
+          bottom: 0.25rem;
+          right: 0.55rem;
+          animation-delay: 0.9s;
+        }
+        @keyframes starPop {
+          0% {
+            transform: translateY(0) scale(0.7);
+            opacity: 0;
+          }
+          40% {
+            transform: translateY(-6px) scale(1);
+            opacity: 1;
+          }
+          100% {
+            transform: translateY(-14px) scale(0.9);
+            opacity: 0;
+          }
+        }
+      `}</style>
     </main>
   );
 }

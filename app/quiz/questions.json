@@ -798,5 +798,101 @@
     "answer": "It is partitioned into an outer page number, an inner page offset/number, and a page offset.",
     "correctOption": 2,
     "explanation": "To avoid allocating massive contiguous page tables, the logical address is divided into multiple parts, typically an outer page number to index the first-level table, an inner page number for the second-level table, and the offset within the page"
+  },
+  {
+    "id": 51,
+    "category": "CPU Scheduling",
+    "difficulty": "Simple",
+    "topic": "FCFS",
+    "question": "A process arrives at time 2 ms and completes at time 10 ms. What is its turnaround time (TAT)?",
+    "options": [
+      "6 ms",
+      "8 ms",
+      "10 ms",
+      "12 ms"
+    ],
+    "answer": "8 ms",
+    "correctOption": 1,
+    "explanation": "Turnaround time is completion time minus arrival time, so 10 - 2 = 8 ms."
+  },
+  {
+    "id": 52,
+    "category": "CPU Scheduling",
+    "difficulty": "Simple",
+    "topic": "FCFS",
+    "question": "If a process has a waiting time of 4 ms and a burst time of 3 ms, what is its turnaround time (TAT)?",
+    "options": [
+      "5 ms",
+      "7 ms",
+      "8 ms",
+      "10 ms"
+    ],
+    "answer": "7 ms",
+    "correctOption": 1,
+    "explanation": "Turnaround time is waiting time plus burst time: 4 + 3 = 7 ms."
+  },
+  {
+    "id": 53,
+    "category": "CPU Scheduling",
+    "difficulty": "Intermediate",
+    "topic": "FCFS",
+    "question": "Three processes with burst times 4 ms, 2 ms, and 6 ms arrive at time 0. Under FCFS, what is the average waiting time (AWT)?",
+    "options": [
+      "2.67 ms",
+      "3.33 ms",
+      "4.00 ms",
+      "5.00 ms"
+    ],
+    "answer": "3.33 ms",
+    "correctOption": 1,
+    "explanation": "The waiting times are 0 ms, 4 ms, and 6 ms, so the average is (0 + 4 + 6) / 3 = 3.33 ms."
+  },
+  {
+    "id": 54,
+    "category": "CPU Scheduling",
+    "difficulty": "Intermediate",
+    "topic": "SJF",
+    "question": "For processes with burst times 8 ms, 3 ms, and 5 ms arriving together, what is the average waiting time (AWT) under SJF?",
+    "options": [
+      "2.67 ms",
+      "3.67 ms",
+      "4.33 ms",
+      "6.00 ms"
+    ],
+    "answer": "3.67 ms",
+    "correctOption": 1,
+    "explanation": "In SJF, the processes run in the order 3 ms, 5 ms, and 8 ms, giving waiting times 0 ms, 3 ms, and 8 ms, so the average is 3.67 ms."
+  },
+  {
+    "id": 55,
+    "category": "CPU Scheduling",
+    "difficulty": "Hard",
+    "topic": "Round-Robin",
+    "question": "In Round Robin scheduling with a time quantum of 2 ms, processes P1, P2, and P3 have burst times 4 ms, 2 ms, and 3 ms. What is the average turnaround time (TAT)?",
+    "options": [
+      "4.00 ms",
+      "6.00 ms",
+      "7.00 ms",
+      "8.00 ms"
+    ],
+    "answer": "7.00 ms",
+    "correctOption": 2,
+    "explanation": "The completion times are 8 ms, 4 ms, and 9 ms, so the turnaround times are 8, 4, and 9, giving an average of 7 ms."
+  },
+  {
+    "id": 56,
+    "category": "CPU Scheduling",
+    "difficulty": "Hard",
+    "topic": "Priority",
+    "question": "A process with a burst time of 6 ms waits 5 ms before it starts executing. What is its turnaround time (TAT)?",
+    "options": [
+      "9 ms",
+      "10 ms",
+      "11 ms",
+      "12 ms"
+    ],
+    "answer": "11 ms",
+    "correctOption": 2,
+    "explanation": "Turnaround time is waiting time plus burst time: 5 + 6 = 11 ms."
   }
 ]
