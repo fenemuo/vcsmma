@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GitHubProvider from "next-auth/providers/github";
 import prisma from "@/lib/prisma";
 import { verifyPassword } from "@/lib/auth";
 
@@ -27,11 +28,34 @@ const handler = NextAuth({
         };
       },
     }),
+    GitHubProvider({
+      clientId: process.env.GITHUB_ID || "",
+      clientSecret: process.env.GITHUB_SECRET || "",
+    }),
   ],
   session: {
     strategy: "jwt",
   },
   callbacks: {
+    async signIn({ user, account }) {
+      if (account?.provider === "github") {
+        const existingUser = await prisma.user.findUnique({
+          where: { email: user.email || "" },
+        });
+        if (!existingUser && user.email) {
+          await prisma.user.create({
+            data: {
+              email: user.email,
+              name: user.name || "GitHub User",
+              username: user.email.split("@")[0] || "github-user",
+              password: "oauth-github",
+              role: "student",
+            },
+          });
+        }
+      }
+      return true;
+    },
     async jwt({ token, user }) {
       if (user) {
         const authUser = user as { id: string; username?: string; role?: string };

@@ -228,6 +228,28 @@ export default function QuizClient() {
     return () => window.clearInterval(timer);
   }, [currentQuestion?.id, isComplete, isAnswered, timerDuration]);
 
+  // Save quiz performance when complete
+  useEffect(() => {
+    if (isComplete && score > 0) {
+      const savePerformance = async () => {
+        try {
+          await fetch("/api/quiz-performance", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              score,
+              totalPoints: totalPossiblePoints,
+              percentage,
+            }),
+          });
+        } catch (error) {
+          console.error("Error saving quiz performance:", error);
+        }
+      };
+      savePerformance();
+    }
+  }, [isComplete, score, totalPossiblePoints, percentage]);
+
   if (!hasStarted) {
     return <QuizIntro onStart={() => setHasStarted(true)} />;
   }

@@ -1,12 +1,15 @@
 "use client";
 
+import { signIn } from "next-auth/react";
 import { useState, type FormEvent } from "react";
+import { FiGithub } from "react-icons/fi";
 
 export default function RegisterPage() {
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -21,6 +24,11 @@ export default function RegisterPage() {
 
     if (!validatePassword(password)) {
       setError("Password must be at least 6 characters and contain letters and numbers only.");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
       return;
     }
 
@@ -41,19 +49,20 @@ export default function RegisterPage() {
     setName("");
     setEmail("");
     setPassword("");
+    setConfirmPassword("");
   }
 
   return (
     <main className="mx-auto max-w-xl px-4 py-12">
       <section className="rounded-3xl border border-slate-800/80 bg-slate-950/90 p-8 text-slate-100 shadow-xl shadow-slate-950/30">
         <h1 className="text-3xl font-semibold">Create Account</h1>
-        <p className="mt-2 text-slate-400">Register with a username, email, and password.</p>
+        <p className="mt-2 text-slate-400">Register with a username, email, and password, or use GitHub.</p>
 
         <form className="mt-8 space-y-4" onSubmit={handleSubmit}>
           <div>
             <label className="block text-sm text-slate-300">Username</label>
             <input
-              className="mt-2 w-full rounded-xl border border-slate-700 bg-slate-900 px-4 py-3 text-slate-100 outline-none focus:border-blue-500"
+              className="mt-2 w-full rounded-xl border border-slate-700 bg-slate-900 px-4 py-3 text-slate-100 outline-none focus:border-emerald-500"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
@@ -62,7 +71,7 @@ export default function RegisterPage() {
           <div>
             <label className="block text-sm text-slate-300">Full Name</label>
             <input
-              className="mt-2 w-full rounded-xl border border-slate-700 bg-slate-900 px-4 py-3 text-slate-100 outline-none focus:border-blue-500"
+              className="mt-2 w-full rounded-xl border border-slate-700 bg-slate-900 px-4 py-3 text-slate-100 outline-none focus:border-emerald-500"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
@@ -72,7 +81,7 @@ export default function RegisterPage() {
             <label className="block text-sm text-slate-300">Email</label>
             <input
               type="email"
-              className="mt-2 w-full rounded-xl border border-slate-700 bg-slate-900 px-4 py-3 text-slate-100 outline-none focus:border-blue-500"
+              className="mt-2 w-full rounded-xl border border-slate-700 bg-slate-900 px-4 py-3 text-slate-100 outline-none focus:border-emerald-500"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -82,23 +91,53 @@ export default function RegisterPage() {
             <label className="block text-sm text-slate-300">Password</label>
             <input
               type="password"
-              className="mt-2 w-full rounded-xl border border-slate-700 bg-slate-900 px-4 py-3 text-slate-100 outline-none focus:border-blue-500"
+              className="mt-2 w-full rounded-xl border border-slate-700 bg-slate-900 px-4 py-3 text-slate-100 outline-none focus:border-emerald-500"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
             <p className="mt-2 text-xs text-slate-500">Password must be at least 6 characters and contain only letters and numbers.</p>
           </div>
 
+          <div>
+            <label className="block text-sm text-slate-300">Confirm Password</label>
+            <input
+              type="password"
+              className="mt-2 w-full rounded-xl border border-slate-700 bg-slate-900 px-4 py-3 text-slate-100 outline-none focus:border-emerald-500"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+          </div>
+
           {error && <p className="text-sm text-red-400">{error}</p>}
           {success && <p className="text-sm text-emerald-400">{success}</p>}
 
-          <button className="w-full rounded-2xl bg-indigo-600 px-4 py-3 text-white transition hover:bg-indigo-500" type="submit">
+          <button className="w-full rounded-2xl bg-emerald-600 px-4 py-3 text-white transition hover:bg-emerald-500" type="submit">
             Create Account
           </button>
         </form>
 
+        {/* GitHub Sign Up */}
+        <div className="mt-6">
+          <div className="relative mb-6">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-slate-700"></div>
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="bg-slate-950 px-2 text-slate-400">Or continue with</span>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={() => signIn("github", { redirect: true, callbackUrl: "/profile" })}
+            className="w-full flex items-center justify-center gap-2 rounded-2xl border border-slate-700 bg-slate-900/50 px-4 py-3 text-slate-300 transition hover:bg-slate-800 hover:text-white"
+          >
+            <FiGithub size={20} />
+            Sign up with GitHub
+          </button>
+        </div>
+
         <p className="mt-6 text-sm text-slate-400">
-          Already have an account? <a href="/auth/login" className="text-blue-400 hover:underline">Log in here</a>.
+          Already have an account? <a href="/auth/login" className="text-emerald-400 hover:underline">Log in here</a>.
         </p>
       </section>
     </main>
