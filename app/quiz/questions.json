@@ -1,0 +1,802 @@
+[
+  {
+    "id": 1,
+    "category": "CPU Scheduling",
+    "difficulty": "Simple",
+    "topic": "",
+    "question": "Which scheduling algorithm simply allocates the CPU to the process that requests it first?",
+    "options": [
+      "Round Robin",
+      "Shortest Job First",
+      "First-Come, First-Served",
+      "Priority Scheduling"
+    ],
+    "answer": "First-Come, First-Served",
+    "correctOption": 2,
+    "explanation": "With First-Come, First-Served (FCFS), processes are assigned the CPU in the exact order they request it"
+  },
+  {
+    "id": 2,
+    "category": "CPU Scheduling",
+    "difficulty": "Simple",
+    "topic": "Round-Robin",
+    "question": "What is the fundamental concept that drives the Round-Robin (RR) scheduling algorithm?",
+    "options": [
+      "Process aging",
+      "Time quantum (or time slice)",
+      "Memory paging",
+      "Deadlock avoidance"
+    ],
+    "answer": "Time quantum (or time slice)",
+    "correctOption": 1,
+    "explanation": "In Round-Robin scheduling, each process is assigned a small unit of time called a time quantum, after which it is preempted if it is still running"
+  },
+  {
+    "id": 3,
+    "category": "CPU Scheduling",
+    "difficulty": "Simple",
+    "topic": "",
+    "question": "How is a preemptive scheduling algorithm defined?",
+    "options": [
+      "It allows a running process to keep the CPU until it voluntarily yields.",
+      "It allows the scheduler to suspend a running process after a maximum fixed time or when a higher-priority process arrives.",
+      "It prevents any process from entering the ready queue.",
+      "It strictly assigns the CPU to the shortest job forever."
+    ],
+    "answer": "It allows the scheduler to suspend a running process after a maximum fixed time or when a higher-priority process arrives.",
+    "correctOption": 1,
+    "explanation": "A preemptive scheduling algorithm picks a process and lets it run for a maximum of some fixed time, forceably suspending it if it is still running at the end of the interval"
+  },
+  {
+    "id": 4,
+    "category": "CPU Scheduling",
+    "difficulty": "Simple",
+    "topic": "",
+    "question": "Which algorithm is provably optimal for minimizing the average waiting time of a given set of processes?",
+    "options": [
+      "Shortest Job First (SJF)",
+      "First-Come, First-Served (FCFS)",
+      "Round Robin (RR)",
+      "Multilevel Queue"
+    ],
+    "answer": "Shortest Job First (SJF)",
+    "correctOption": 0,
+    "explanation": "Shortest Job First is provably optimal because moving a short process before a long one decreases the waiting time of the short process more than it increases the waiting time of the long process"
+  },
+  {
+    "id": 5,
+    "category": "CPU Scheduling",
+    "difficulty": "Simple",
+    "topic": "",
+    "question": "Process execution typically alternates between which two states?",
+    "options": [
+      "Ready and Blocked",
+      "CPU burst and I/O burst",
+      "Fetch and Execute",
+      "Paging and Swapping"
+    ],
+    "answer": "CPU burst and I/O burst",
+    "correctOption": 1,
+    "explanation": "Process execution consists of a cycle alternating between CPU execution bursts and I/O wait bursts"
+  },
+  {
+    "id": 6,
+    "category": "CPU Scheduling",
+    "difficulty": "Simple",
+    "topic": "",
+    "question": "What is the specific role of the short-term scheduler (or CPU scheduler)?",
+    "options": [
+      "To select which jobs to bring from the disk into memory.",
+      "To manage virtual memory pages.",
+      "To select a process from the ready queue in memory and allocate the CPU to it.",
+      "To handle I/O device interrupts."
+    ],
+    "answer": "To select a process from the ready queue in memory and allocate the CPU to it.",
+    "correctOption": 2,
+    "explanation": "The short-term scheduler selects a process from those residing in memory that are ready to execute and allocates the CPU to it"
+  },
+  {
+    "id": 7,
+    "category": "CPU Scheduling",
+    "difficulty": "Simple",
+    "topic": "",
+    "question": "What is the definition of a context switch?",
+    "options": [
+      "Reclaiming memory from an idle process.",
+      "Performing a state save of the current process and a state restore of a different process.",
+      "Moving a process from the ready queue to the disk.",
+      "Changing the priority of a running process."
+    ],
+    "answer": "Performing a state save of the current process and a state restore of a different process.",
+    "correctOption": 1,
+    "explanation": "Switching the CPU to another process requires performing a state save of the current process and a state restore of the new process, which is known as a context switch"
+  },
+  {
+    "id": 8,
+    "category": "CPU Scheduling",
+    "difficulty": "Simple",
+    "topic": "Priority",
+    "question": "What scheduling problem occurs when low-priority processes are left waiting indefinitely for the CPU?",
+    "options": [
+      "Thrashing",
+      "Priority Inversion",
+      "Starvation",
+      "Deadlock"
+    ],
+    "answer": "Starvation",
+    "correctOption": 2,
+    "explanation": "A steady stream of higher-priority processes can prevent a low-priority process from ever getting the CPU, a situation called indefinite blocking or starvation"
+  },
+  {
+    "id": 9,
+    "category": "CPU Scheduling",
+    "difficulty": "Intermediate",
+    "topic": "Priority",
+    "question": "Which technique is commonly used to prevent the starvation of low-priority processes?",
+    "options": [
+      "Thrashing",
+      "Context switching",
+      "Aging",
+      "Spooling"
+    ],
+    "answer": "Aging",
+    "correctOption": 2,
+    "explanation": "Aging is a technique that solves starvation by gradually increasing the priority of processes that wait in the system for a long time"
+  },
+  {
+    "id": 10,
+    "category": "CPU Scheduling",
+    "difficulty": "Intermediate",
+    "topic": "Round-Robin",
+    "question": "What happens to the Round-Robin (RR) scheduling algorithm if the time quantum is set to be extremely large?",
+    "options": [
+      "It degenerates into Shortest Job First (SJF).",
+      "It degenerates into First-Come, First-Served (FCFS).",
+      "It becomes a Real-Time scheduler.",
+      "It maximizes context-switching overhead."
+    ],
+    "answer": "It degenerates into First-Come, First-Served (FCFS).",
+    "correctOption": 1,
+    "explanation": "If the time quantum is extremely large, preemption rarely happens and the RR policy becomes the same as the FCFS policy"
+  },
+  {
+    "id": 11,
+    "category": "CPU Scheduling",
+    "difficulty": "Intermediate",
+    "topic": "Shortest Job First",
+    "question": "What is the preemptive version of the Shortest Job First (SJF) algorithm called?",
+    "options": [
+      "Earliest Deadline First (EDF)",
+      "Shortest Remaining Time Next (SRTN)",
+      "Round Robin",
+      "Guaranteed Scheduling"
+    ],
+    "answer": "Shortest Remaining Time Next (SRTN)",
+    "correctOption": 1,
+    "explanation": "A preemptive version of shortest job first is shortest remaining time next, where the scheduler always chooses the process whose remaining run time is the shortest"
+  },
+  {
+    "id": 12,
+    "category": "CPU Scheduling",
+    "difficulty": "Intermediate",
+    "topic": "Priority",
+    "question": "In a Multilevel Feedback Queue scheduler, what condition typically causes a process to be moved to a lower-priority queue?",
+    "options": [
+      "Waiting for I/O.",
+      "Voluntarily yielding the CPU quickly.",
+      "Consuming too much CPU time in its current quantum.",
+      "Interacting with the user terminal."
+    ],
+    "answer": "Consuming too much CPU time in its current quantum.",
+    "correctOption": 2,
+    "explanation": "The idea is to separate processes by CPU burst characteristics; if a process uses too much CPU time, it is moved to a lower-priority queue"
+  },
+  {
+    "id": 13,
+    "category": "CPU Scheduling",
+    "difficulty": "Intermediate",
+    "topic": "",
+    "question": "Which scheduling algorithm allocates CPU time by giving processes randomized tickets and randomly picking a winner?",
+    "options": [
+      "Fair-Share Scheduling",
+      "Guaranteed Scheduling",
+      "Lottery Scheduling",
+      "Priority Scheduling"
+    ],
+    "answer": "Lottery Scheduling",
+    "correctOption": 2,
+    "explanation": "Lottery scheduling gives processes lottery tickets for resources, and whenever a scheduling decision is made, a lottery ticket is chosen at random"
+  },
+  {
+    "id": 14,
+    "category": "CPU Scheduling",
+    "difficulty": "Intermediate",
+    "topic": "Sjf",
+    "question": "Since the exact length of the next CPU burst cannot be known for short-term SJF scheduling, how is it typically predicted?",
+    "options": [
+      "By asking the user for an estimate.",
+      "By using an exponential average of the measured lengths of previous CPU bursts.",
+      "By running a simulation.",
+      "By assuming it equals the time quantum."
+    ],
+    "answer": "By using an exponential average of the measured lengths of previous CPU bursts.",
+    "correctOption": 1,
+    "explanation": "The next CPU burst is generally predicted as an exponential average of the measured lengths of previous CPU bursts, blending recent and past history"
+  },
+  {
+    "id": 15,
+    "category": "CPU Scheduling",
+    "difficulty": "Intermediate",
+    "topic": "",
+    "question": "What is \"dispatch latency\"?",
+    "options": [
+      "The time a process spends waiting in the ready queue.",
+      "The time it takes for the disk to rotate to the correct sector.",
+      "The time it takes for the dispatcher to stop one process and start another running.",
+      "The time required to load a page from disk."
+    ],
+    "answer": "The time it takes for the dispatcher to stop one process and start another running.",
+    "correctOption": 2,
+    "explanation": "The time it takes for the dispatcher to stop one process and start another running is known as the dispatch latency"
+  },
+  {
+    "id": 16,
+    "category": "CPU Scheduling",
+    "difficulty": "Intermediate",
+    "topic": "Priority",
+    "question": "What protocol addresses the \"priority inversion\" problem by temporarily elevating the priority of a low-priority process holding a needed resource?",
+    "options": [
+      "Priority-inheritance protocol",
+      "Two-phase locking",
+      "Shortest Remaining Time",
+      "Multilevel Feedback"
+    ],
+    "answer": "Priority-inheritance protocol",
+    "correctOption": 0,
+    "explanation": "Under the priority-inheritance protocol, processes accessing resources needed by a higher-priority process temporarily inherit the higher priority until they release the resource"
+  },
+  {
+    "id": 17,
+    "category": "CPU Scheduling",
+    "difficulty": "Intermediate",
+    "topic": "",
+    "question": "In multiprocessor systems, what is the term for a scheduler's attempt to keep a process running on the same processor to benefit from cached data?",
+    "options": [
+      "Load balancing",
+      "Context affinity",
+      "Processor affinity",
+      "Symmetric multiprocessing"
+    ],
+    "answer": "Processor affinity",
+    "correctOption": 2,
+    "explanation": "Because of the high cost of invalidating and repopulating caches, systems try to avoid migrating processes and attempt to keep a process running on the same processor, which is known as processor affinity"
+  },
+  {
+    "id": 18,
+    "category": "CPU Scheduling",
+    "difficulty": "Hard",
+    "topic": "",
+    "question": "In Rate Monotonic Scheduling (RMS) for real-time systems, how are static priorities assigned to periodic tasks?",
+    "options": [
+      "The longer the period, the higher the priority.",
+      "The shorter the period, the higher the priority.",
+      "Priorities are assigned based on upcoming deadlines dynamically.",
+      "Priorities are determined by the user at runtime."
+    ],
+    "answer": "The shorter the period, the higher the priority.",
+    "correctOption": 1,
+    "explanation": "RMS assigns each process a fixed priority equal to the frequency of occurrence, meaning the shorter the period, the higher the priority"
+  },
+  {
+    "id": 19,
+    "category": "CPU Scheduling",
+    "difficulty": "Hard",
+    "topic": "Priority",
+    "question": "Which real-time scheduling algorithm dynamically assigns priorities such that the process with the closest deadline gets the highest priority?",
+    "options": [
+      "Rate Monotonic Scheduling (RMS)",
+      "Proportional Share Scheduling",
+      "Earliest-Deadline-First (EDF) Scheduling",
+      "Round-Robin Scheduling"
+    ],
+    "answer": "Earliest-Deadline-First (EDF) Scheduling",
+    "correctOption": 2,
+    "explanation": "Earliest-deadline-first (EDF) scheduling dynamically assigns priorities according to deadline; the earlier the deadline, the higher the priority"
+  },
+  {
+    "id": 20,
+    "category": "CPU Scheduling",
+    "difficulty": "Hard",
+    "topic": "",
+    "question": "What is the theoretical worst-case CPU utilization bound for Rate Monotonic Scheduling (RMS) as the number of processes approaches infinity?",
+    "options": [
+      "100%",
+      "Approximately 83%",
+      "Approximately 69% (asymptotic to ln 2)",
+      "50%"
+    ],
+    "answer": "Approximately 69% (asymptotic to ln 2)",
+    "correctOption": 2,
+    "explanation": "Liu and Layland proved that as the number of processes approaches infinity, the maximum permitted CPU utilization bound is asymptotic to ln 2, or about 69 percent"
+  },
+  {
+    "id": 21,
+    "category": "CPU Scheduling",
+    "difficulty": "Hard",
+    "topic": "",
+    "question": "Which algorithm eliminates communication delays in tightly coupled multiprocessor threads by ensuring all members of a related group run simultaneously on different timeshared CPUs?",
+    "options": [
+      "Gang scheduling",
+      "Push migration",
+      "Pull migration",
+      "Soft affinity"
+    ],
+    "answer": "Gang scheduling",
+    "correctOption": 0,
+    "explanation": "Gang scheduling schedules groups of related threads as a unit, running all members simultaneously on different timeshared CPUs so they can communicate almost immediately"
+  },
+  {
+    "id": 22,
+    "category": "CPU Scheduling",
+    "difficulty": "Hard",
+    "topic": "",
+    "question": "In multiprocessor load balancing, what occurs during \"push migration\"?",
+    "options": [
+      "An idle processor pulls a waiting task from a busy processor.",
+      "A specific task periodically checks processor loads and moves processes from overloaded processors to idle ones.",
+      "Processes are pushed to disk when memory is full.",
+      "Processes are mapped strictly to the processor that created them."
+    ],
+    "answer": "A specific task periodically checks processor loads and moves processes from overloaded processors to idle ones.",
+    "correctOption": 1,
+    "explanation": "With push migration, a task periodically checks the load on each processor and evenly distributes the load by pushing processes from overloaded to less-busy processors"
+  },
+  {
+    "id": 23,
+    "category": "CPU Scheduling",
+    "difficulty": "Hard",
+    "topic": "",
+    "question": "In multithreaded multicore processor scheduling, what primarily triggers a thread switch under \"coarse-grained multithreading\"?",
+    "options": [
+      "The boundary of every instruction cycle.",
+      "A long-latency event, such as a memory stall.",
+      "The expiration of a 10-millisecond time quantum.",
+      "An inter-process communication message."
+    ],
+    "answer": "A long-latency event, such as a memory stall.",
+    "correctOption": 1,
+    "explanation": "With coarse-grained multithreading, a thread executes until a long-latency event such as a memory stall occurs, which forces the processor to switch to another thread"
+  },
+  {
+    "id": 24,
+    "category": "CPU Scheduling",
+    "difficulty": "Hard",
+    "topic": "",
+    "question": "In queueing-network analysis, Little's Formula is expressed as n=\u03bb\u00d7W. What does W represent?",
+    "options": [
+      "The average arrival rate for new processes.",
+      "The average queue length.",
+      "The average waiting time in the queue.",
+      "The workload constant."
+    ],
+    "answer": "The average waiting time in the queue.",
+    "correctOption": 2,
+    "explanation": "In Little's formula, W is the average waiting time in the queue, n is the average queue length, and \u03bb is the average arrival rate"
+  },
+  {
+    "id": 25,
+    "category": "CPU Scheduling",
+    "difficulty": "Hard",
+    "topic": "Priority",
+    "question": "According to the Solaris time-sharing scheduling dispatch table, how is the time quantum adjusted as a thread's priority increases?",
+    "options": [
+      "The time quantum remains fixed.",
+      "The time quantum increases.",
+      "The time quantum decreases.",
+      "The time quantum is randomized."
+    ],
+    "answer": "The time quantum decreases.",
+    "correctOption": 2,
+    "explanation": "In Solaris, there is an inverse relationship between priorities and time quanta; the lowest priority has the highest time quantum, and the highest priority has the lowest time quantum"
+  },
+  {
+    "id": 26,
+    "category": "Memory Management",
+    "difficulty": "Simple",
+    "topic": "",
+    "question": "Which of the following is a memory-management scheme that permits the physical address space of a process to be noncontiguous, thus avoiding external fragmentation?",
+    "options": [
+      "Fixed partitioning",
+      "Paging",
+      "Base and Limit register allocation",
+      "Swapping"
+    ],
+    "answer": "Paging",
+    "correctOption": 1,
+    "explanation": "Paging is a memory-management scheme that permits the physical address space of a process to be noncontiguous, avoiding external fragmentation and the need for compaction"
+  },
+  {
+    "id": 27,
+    "category": "Memory Management",
+    "difficulty": "Simple",
+    "topic": "Tlb",
+    "question": "What is the primary purpose of a Translation Lookaside Buffer (TLB)?",
+    "options": [
+      "To cache disk blocks.",
+      "To temporarily store I/O interrupts.",
+      "To act as a fast-lookup hardware cache for page-table entries.",
+      "To swap entire processes in and out of memory."
+    ],
+    "answer": "To act as a fast-lookup hardware cache for page-table entries.",
+    "correctOption": 2,
+    "explanation": "A TLB is a special, small, fast-lookup hardware cache used to speed up the translation of virtual addresses to physical addresses by storing recently used page-table entries"
+  },
+  {
+    "id": 28,
+    "category": "Memory Management",
+    "difficulty": "Simple",
+    "topic": "",
+    "question": "Which dynamic memory allocation strategy searches the free list and allocates the first hole that is big enough for the request?",
+    "options": [
+      "Best fit",
+      "Worst fit",
+      "Quick fit",
+      "First fit"
+    ],
+    "answer": "First fit",
+    "correctOption": 3,
+    "explanation": "First fit allocates the first hole that is big enough, searching the list and stopping as soon as it finds a sufficiently large free hole"
+  },
+  {
+    "id": 29,
+    "category": "Memory Management",
+    "difficulty": "Simple",
+    "topic": "",
+    "question": "What is the process of moving an entire process out of main memory to a backing store, and later moving it back in, to allow other processes to run?",
+    "options": [
+      "Paging",
+      "Swapping",
+      "Thrashing",
+      "Compaction"
+    ],
+    "answer": "Swapping",
+    "correctOption": 1,
+    "explanation": "Swapping consists of bringing each process in its entirety, running it for a while, and then putting it back on the disk (backing store) to make room for others"
+  },
+  {
+    "id": 30,
+    "category": "Memory Management",
+    "difficulty": "Simple",
+    "topic": "",
+    "question": "The strategy of not bringing a page into physical memory until it is actually referenced during execution is called:",
+    "options": [
+      "Prepaging",
+      "Demand paging",
+      "Contiguous allocation",
+      "Segmentation"
+    ],
+    "answer": "Demand paging",
+    "correctOption": 1,
+    "explanation": "Demand paging is a strategy where pages are loaded only on demand, not in advance, waiting until the first reference causes a page fault"
+  },
+  {
+    "id": 31,
+    "category": "Memory Management",
+    "difficulty": "Simple",
+    "topic": "",
+    "question": "What hardware/software event is triggered when a running process accesses a virtual page that is currently not mapped in physical memory?",
+    "options": [
+      "Page fault",
+      "Timer interrupt",
+      "Cache miss",
+      "System call"
+    ],
+    "answer": "Page fault",
+    "correctOption": 0,
+    "explanation": "If a reference is made to a valid memory location but the page has not yet been brought into memory, a page fault occurs, trapping to the operating system"
+  },
+  {
+    "id": 32,
+    "category": "Memory Management",
+    "difficulty": "Simple",
+    "topic": "",
+    "question": "Which page replacement algorithm removes the oldest page in memory by keeping a queue of pages in the order they arrived?",
+    "options": [
+      "LRU",
+      "NRU",
+      "FIFO",
+      "Optimal"
+    ],
+    "answer": "FIFO",
+    "correctOption": 2,
+    "explanation": "The First-In, First-Out (FIFO) algorithm replaces the oldest page, easily managed by maintaining a linked list of pages in the order they were introduced"
+  },
+  {
+    "id": 33,
+    "category": "Memory Management",
+    "difficulty": "Simple",
+    "topic": "",
+    "question": "When memory is allocated in fixed-sized blocks, the wasted space inside an allocated block that is larger than the requested memory is called:",
+    "options": [
+      "External fragmentation",
+      "Internal fragmentation",
+      "Paging",
+      "Compaction overhead"
+    ],
+    "answer": "Internal fragmentation",
+    "correctOption": 1,
+    "explanation": "The difference between the requested memory size and the slightly larger fixed-sized block allocated to it is called internal fragmentation, representing memory wasted internal to a partition"
+  },
+  {
+    "id": 34,
+    "category": "Memory Management",
+    "difficulty": "Intermediate",
+    "topic": "Best Fit",
+    "question": "How does the \"Best fit\" allocation strategy typically compare to \"First fit\"?",
+    "options": [
+      "It is much faster and produces larger leftover holes.",
+      "It is slower because it must search the entire list and tends to fill memory with tiny, useless holes.",
+      "It avoids external fragmentation completely.",
+      "It completely eliminates the need for compaction."
+    ],
+    "answer": "It is slower because it must search the entire list and tends to fill memory with tiny, useless holes.",
+    "correctOption": 1,
+    "explanation": "Best fit is slower because it searches the entire list and surprisingly results in more wasted memory by producing tiny, useless holes compared to first fit"
+  },
+  {
+    "id": 35,
+    "category": "Memory Management",
+    "difficulty": "Intermediate",
+    "topic": "",
+    "question": "What is Belady's Anomaly?",
+    "options": [
+      "The phenomenon where adding more physical page frames increases the number of page faults.",
+      "The situation where a process spends more time paging than executing.",
+      "The inevitable failure of the Optimal page replacement algorithm.",
+      "The fact that external fragmentation scales with memory size."
+    ],
+    "answer": "The phenomenon where adding more physical page frames increases the number of page faults.",
+    "correctOption": 0,
+    "explanation": "Belady's anomaly is the unexpected phenomenon where increasing the number of page frames available to a process actually increases its page-fault rate, famously observed in the FIFO algorithm"
+  },
+  {
+    "id": 36,
+    "category": "Memory Management",
+    "difficulty": "Intermediate",
+    "topic": "",
+    "question": "Which page replacement algorithm is based on the idea that pages heavily used in the recent past will likely be used again in the near future?",
+    "options": [
+      "FIFO",
+      "Optimal (OPT)",
+      "Least Recently Used (LRU)",
+      "Second Chance"
+    ],
+    "answer": "Least Recently Used (LRU)",
+    "correctOption": 2,
+    "explanation": "LRU uses the recent past as an approximation of the near future, choosing to replace the page that has not been used for the longest period of time"
+  },
+  {
+    "id": 37,
+    "category": "Memory Management",
+    "difficulty": "Intermediate",
+    "topic": "",
+    "question": "Which memory management technique relies on shuffling the memory contents to place all free memory together in one large block to cure external fragmentation?",
+    "options": [
+      "Thrashing",
+      "Swapping",
+      "Segmentation",
+      "Compaction"
+    ],
+    "answer": "Compaction",
+    "correctOption": 3,
+    "explanation": "Compaction solves external fragmentation by moving all processes toward one end of memory, shifting holes to the other end to produce one large free block"
+  },
+  {
+    "id": 38,
+    "category": "Memory Management",
+    "difficulty": "Intermediate",
+    "topic": "Fifo",
+    "question": "How does the Second Chance (or Clock) page replacement algorithm improve upon pure FIFO?",
+    "options": [
+      "It calculates the exact future reference time of each page.",
+      "It inspects a reference (R) bit; if it is 1, the page is spared and given a second chance.",
+      "It keeps multiple lists separated by page size.",
+      "It replaces the most recently used page instead."
+    ],
+    "answer": "It inspects a reference (R) bit; if it is 1, the page is spared and given a second chance.",
+    "correctOption": 1,
+    "explanation": "Second chance checks the reference bit of the oldest page; if it is 1, the bit is cleared and the page is moved to the end of the list, sparing it from immediate replacement"
+  },
+  {
+    "id": 39,
+    "category": "Memory Management",
+    "difficulty": "Intermediate",
+    "topic": "Thrashing",
+    "question": "What condition causes a system to enter a state of \"thrashing\"?",
+    "options": [
+      "The system is heavily underloaded and the CPU is idle.",
+      "Processes have insufficient frames to hold their active working sets, leading to constant page faulting.",
+      "The CPU scheduler selects a single CPU-bound process to run indefinitely.",
+      "Compaction takes too long to execute."
+    ],
+    "answer": "Processes have insufficient frames to hold their active working sets, leading to constant page faulting.",
+    "correctOption": 1,
+    "explanation": "A program causing page faults every few instructions because it lacks enough frames to hold its actively used pages is said to be thrashing, which sharply drops CPU utilization"
+  },
+  {
+    "id": 40,
+    "category": "Memory Management",
+    "difficulty": "Intermediate",
+    "topic": "Working-Set",
+    "question": "In the Working-Set model of memory management, what does a process's working set represent?",
+    "options": [
+      "The entire virtual address space of the process.",
+      "An approximation of the program's locality, based on the most recent \u0394 page references.",
+      "The set of pages that have never been modified (clean pages).",
+      "The fixed number of page frames reserved for the OS kernel."
+    ],
+    "answer": "An approximation of the program's locality, based on the most recent \u0394 page references.",
+    "correctOption": 1,
+    "explanation": "The set of pages used in the most recent \u0394 memory references defines the working set, which serves as an approximation of the program's current locality"
+  },
+  {
+    "id": 41,
+    "category": "Memory Management",
+    "difficulty": "Intermediate",
+    "topic": "",
+    "question": "What virtual memory technique allows a parent and a child process to share the same physical pages until one of them attempts to modify a page?",
+    "options": [
+      "Paged segmentation",
+      "Copy-on-write",
+      "Demand loading",
+      "Slab allocation"
+    ],
+    "answer": "Copy-on-write",
+    "correctOption": 1,
+    "explanation": "Copy-on-write allows parent and child processes to share pages initially; a shared page is only copied to a newly allocated physical frame when either process attempts to modify it"
+  },
+  {
+    "id": 42,
+    "category": "Memory Management",
+    "difficulty": "Intermediate",
+    "topic": "",
+    "question": "How are shared pages managed when using memory-mapped files in systems like Windows?",
+    "options": [
+      "They are managed by writing duplicates of the file to disk.",
+      "They allow processes to communicate by sharing memory, as writes by one process appear in the address space of the others mapped to the same file.",
+      "They are strictly read-only and cannot be modified.",
+      "They disable the TLB for security."
+    ],
+    "answer": "They allow processes to communicate by sharing memory, as writes by one process appear in the address space of the others mapped to the same file.",
+    "correctOption": 1,
+    "explanation": "Processes can share memory by mapping onto the same file at the same time; writes done by one process then appear in the address spaces of the other processes"
+  },
+  {
+    "id": 43,
+    "category": "Memory Management",
+    "difficulty": "Hard",
+    "topic": "Buddy System",
+    "question": "In managing kernel memory, how does the Buddy System allocator satisfy memory requests?",
+    "options": [
+      "By allocating memory linearly from a single unlimited heap.",
+      "By dynamically dividing physical memory into segments sized as powers of 2.",
+      "By using virtual memory paging to avoid internal fragmentation.",
+      "By swapping the entire kernel to disk."
+    ],
+    "answer": "By dynamically dividing physical memory into segments sized as powers of 2.",
+    "correctOption": 1,
+    "explanation": "The buddy system uses a power-of-2 allocator that divides memory into halves (buddies) to satisfy requests in units sized as a power of 2, allowing fast coalescing of free segments"
+  },
+  {
+    "id": 44,
+    "category": "Memory Management",
+    "difficulty": "Hard",
+    "topic": "",
+    "question": "Which kernel memory allocator algorithm groups contiguous physical pages to cache frequently used objects of the same size, entirely avoiding internal fragmentation?",
+    "options": [
+      "Slab allocation",
+      "Buddy system",
+      "First-fit",
+      "Working-set model"
+    ],
+    "answer": "Slab allocation",
+    "correctOption": 0,
+    "explanation": "Slab allocation uses caches to store kernel objects within slabs (made of contiguous pages); it assigns identically sized free objects from the cache quickly, wasting no memory due to fragmentation"
+  },
+  {
+    "id": 45,
+    "category": "Memory Management",
+    "difficulty": "Hard",
+    "topic": "Paging",
+    "question": "How does an Inverted Page Table reduce the memory overhead of paging?",
+    "options": [
+      "It pages the page table itself to the disk.",
+      "It stores only one entry for every physical page frame in memory, rather than one entry for every virtual page.",
+      "It uses a hardware shift register to map addresses directly.",
+      "It eliminates the need for a TLB."
+    ],
+    "answer": "It stores only one entry for every physical page frame in memory, rather than one entry for every virtual page.",
+    "correctOption": 1,
+    "explanation": "An inverted page table maintains exactly one entry for each physical page frame in main memory, severely reducing the total size of the table compared to standard virtual-to-physical mapping"
+  },
+  {
+    "id": 46,
+    "category": "Memory Management",
+    "difficulty": "Hard",
+    "topic": "",
+    "question": "In the WSClock page replacement algorithm, what action is taken when the clock hand points to a page that is NOT in the working set but is \"dirty\" (modified)?",
+    "options": [
+      "The page is instantly replaced and the process blocks.",
+      "The page is written to disk immediately, halting all scheduling.",
+      "A disk write is scheduled, but the hand advances to continue looking for an immediately available clean page.",
+      "The page's age is reset and it is added back to the working set."
+    ],
+    "answer": "A disk write is scheduled, but the hand advances to continue looking for an immediately available clean page.",
+    "correctOption": 2,
+    "explanation": "If the page is dirty, it cannot be claimed immediately; to avoid a process switch, the write to disk is scheduled, but the hand advances to keep looking for a clean page"
+  },
+  {
+    "id": 47,
+    "category": "Memory Management",
+    "difficulty": "Hard",
+    "topic": "",
+    "question": "What is a key disadvantage of a \"global\" page replacement policy compared to a \"local\" page replacement policy?",
+    "options": [
+      "A process cannot control its own page-fault rate, because it is affected by the paging behavior of other processes.",
+      "Global algorithms require statically fixed partitions.",
+      "Global replacement prevents processes from accessing shared memory.",
+      "Global replacement cannot be used with LRU or FIFO."
+    ],
+    "answer": "A process cannot control its own page-fault rate, because it is affected by the paging behavior of other processes.",
+    "correctOption": 0,
+    "explanation": "With a global replacement algorithm, a process's page fault rate depends on the memory demands of other processes, meaning execution times can vary wildly depending on external circumstances"
+  },
+  {
+    "id": 48,
+    "category": "Memory Management",
+    "difficulty": "Hard",
+    "topic": "",
+    "question": "Why is the Optimal (OPT/MIN) page replacement algorithm unimplementable in a real operating system?",
+    "options": [
+      "It requires infinite physical memory.",
+      "It relies on knowing the exact future memory reference string of the process.",
+      "It creates too many page faults.",
+      "It only works for pure segmentation without paging."
+    ],
+    "answer": "It relies on knowing the exact future memory reference string of the process.",
+    "correctOption": 1,
+    "explanation": "The optimal algorithm requires the OS to know when each page will be referenced next in the future, which is impossible to predict at the time of a page fault"
+  },
+  {
+    "id": 49,
+    "category": "Memory Management",
+    "difficulty": "Hard",
+    "topic": "Lru",
+    "question": "Since exact LRU replacement is too expensive to implement in hardware, how does the software-based \"Aging\" algorithm approximate it?",
+    "options": [
+      "By keeping all pages in a pure FIFO queue.",
+      "By using a shift register for each page, shifting the reference bit into the high-order bit at regular clock ticks.",
+      "By evicting the page with the highest sequence number.",
+      "By relying completely on the Working-Set \u0394 parameter."
+    ],
+    "answer": "By using a shift register for each page, shifting the reference bit into the high-order bit at regular clock ticks.",
+    "correctOption": 1,
+    "explanation": "The aging algorithm simulates LRU by periodically shifting the reference bit into the high-order bit of an 8-bit software counter (shift register), ensuring recently referenced pages have larger values"
+  },
+  {
+    "id": 50,
+    "category": "Memory Management",
+    "difficulty": "Hard",
+    "topic": "Paging",
+    "question": "In a hierarchical (two-level) paging system for a 32-bit architecture, how is a logical address mapped to physical memory?",
+    "options": [
+      "The logical address is passed directly to the disk controller.",
+      "It is hashed into a single 32-bit register.",
+      "It is partitioned into an outer page number, an inner page offset/number, and a page offset.",
+      "It relies purely on base and limit registers."
+    ],
+    "answer": "It is partitioned into an outer page number, an inner page offset/number, and a page offset.",
+    "correctOption": 2,
+    "explanation": "To avoid allocating massive contiguous page tables, the logical address is divided into multiple parts, typically an outer page number to index the first-level table, an inner page number for the second-level table, and the offset within the page"
+  }
+]
