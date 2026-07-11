@@ -1,139 +1,128 @@
-import React from "react";
-
-interface GanttTask {
-  id: string;
-  start: number | number[];
-  finish: number;
-  arrival?: number;
+interface GanttBlock {
+  process: string;
+  start: number;
+  end: number;
+  color?: string;
 }
 
 interface GanttChartProps {
-  tasks: GanttTask[];
+  blocks: GanttBlock[];
   maxTime: number;
 }
 
-export function GanttChart({ tasks, maxTime }: GanttChartProps) {
-  const pixelsPerUnit = 40;
-  const chartWidth = (maxTime + 1) * pixelsPerUnit;
-  const taskHeight = 30;
-  const gap = 10;
+export function GanttChart({ blocks, maxTime }: GanttChartProps) {
+  const pixelsPerUnit = 60;
+  const chartHeight = 90;
+  const chartWidth = maxTime * pixelsPerUnit;
+
   const colors = [
     "#3b82f6",
-    "#ef4444",
     "#10b981",
     "#f59e0b",
     "#8b5cf6",
-    "#ec4899",
+    "#ef4444",
     "#06b6d4",
+    "#ec4899",
   ];
 
-  const getColor = (index: number) => colors[index % colors.length];
-  const getStartTimes = (task: GanttTask): number[] => {
-    return Array.isArray(task.start) ? task.start : [task.start];
-  };
-
   return (
-    <div className="w-full overflow-x-auto">
-      <svg
-        width={chartWidth + 100}
-        height={tasks.length * (taskHeight + gap) + 60}
-        className="border border-slate-700 bg-slate-800 rounded"
-      >
-        {/* Time axis */}
-        <g>
-          <line
-            x1="80"
-            y1="40"
-            x2={chartWidth + 80}
-            y2="40"
-            stroke="#475569"
-            strokeWidth="2"
-          />
-          {Array.from({ length: maxTime + 1 }).map((_, i) => (
-            <g key={`time-${i}`}>
-              <line
-                x1={80 + i * pixelsPerUnit}
-                y1="35"
-                x2={80 + i * pixelsPerUnit}
-                y2="45"
-                stroke="#64748b"
-                strokeWidth="1"
-              />
-              <text
-                x={80 + i * pixelsPerUnit}
-                y="30"
-                fontSize="12"
-                fill="#94a3b8"
-                textAnchor="middle"
-              >
-                {i}
-              </text>
-            </g>
-          ))}
-        </g>
+    <div className="w-full overflow-x-auto rounded-xl border border-slate-700 bg-slate-900 p-6 shadow-lg">
+      <h3 className="mb-6 text-xl font-semibold text-white">
+        CPU Execution Timeline (Gantt Chart)
+      </h3>
 
-        {/* Tasks */}
-        {tasks.map((task, taskIndex) => {
-          const startTimes = getStartTimes(task);
-          const y = 50 + taskIndex * (taskHeight + gap);
+      <svg
+        width={chartWidth + 80}
+        height={chartHeight}
+        className="overflow-visible"
+      >
+        {/* Shadow */}
+        <defs>
+          <filter id="shadow">
+            <feDropShadow
+              dx="0"
+              dy="2"
+              stdDeviation="3"
+              floodOpacity="0.35"
+            />
+          </filter>
+        </defs>
+
+        {/* Blocks */}
+        {blocks.map((block, index) => {
+          const x = block.start * pixelsPerUnit + 20;
+          const width = (block.end - block.start) * pixelsPerUnit;
 
           return (
-            <g key={task.id}>
-              {/* Task label */}
+            <g key={`${block.process}-${index}`}>
+              <rect
+                x={x}
+                y={20}
+                width={width}
+                height={45}
+                rx={10}
+                fill={block.color || colors[index % colors.length]}
+                stroke="#0f172a"
+                strokeWidth={2}
+                filter="url(#shadow)"
+              />
+
+              {/* Process Label */}
               <text
-                x="10"
-                y={y + taskHeight / 2 + 4}
-                fontSize="14"
+                x={x + width / 2}
+                y={48}
+                fill="white"
                 fontWeight="bold"
-                fill="#e2e8f0"
-                textAnchor="start"
+                fontSize={15}
+                textAnchor="middle"
               >
-                {task.id}
+                {block.process}
               </text>
 
-              {/* Task bars */}
-              {startTimes.map((startTime, barIndex) => {
-                let endTime = task.finish;
-                
-                // For Round Robin with multiple start times, calculate individual segment duration
-                if (startTimes.length > 1) {
-                  if (barIndex < startTimes.length - 1) {
-                    endTime = startTimes[barIndex + 1];
-                  }
-                }
+              {/* Start Time */}
+              <text
+                x={x}
+                y={82}
+                fill="#CBD5E1"
+                fontSize={13}
+                textAnchor="middle"
+              >
+                {block.start}
+              </text>
 
-                const width = (endTime - startTime) * pixelsPerUnit;
-                const x = 80 + startTime * pixelsPerUnit;
-
-                return (
-                  <g key={`bar-${barIndex}`}>
-                    <rect
-                      x={x}
-                      y={y}
-                      width={width}
-                      height={taskHeight}
-                      fill={getColor(taskIndex)}
-                      stroke="#1e293b"
-                      strokeWidth="1"
-                      rx="4"
-                    />
-                    <text
-                      x={x + width / 2}
-                      y={y + taskHeight / 2 + 5}
-                      fontSize="12"
-                      fill="#f1f5f9"
-                      textAnchor="middle"
-                      fontWeight="500"
-                    >
-                      {startTime}-{endTime}
-                    </text>
-                  </g>
-                );
-              })}
+              {/* End Time */}
+              {index === blocks.length - 1 && (
+                <text
+                  x={x + width}
+                  y={82}
+                  fill="#CBD5E1"
+                  fontSize={13}
+                  textAnchor="middle"
+                >
+                  {block.end}
+                </text>
+              )}
             </g>
           );
         })}
       </svg>
+
+      {/* Legend */}
+      <div className="mt-6 flex flex-wrap gap-4">
+        {Array.from(new Set(blocks.map((b) => b.process))).map(
+          (process, index) => (
+            <div key={process} className="flex items-center gap-2">
+              <div
+                className="h-4 w-4 rounded"
+                style={{
+                  background: colors[index % colors.length],
+                }}
+              />
+              <span className="text-sm text-slate-300">{process}</span>
+            </div>
+          )
+        )}
+      </div>
     </div>
   );
 }

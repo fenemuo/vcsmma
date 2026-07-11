@@ -12,28 +12,51 @@ export interface PriorityResult extends Process {
   turnaround: number;
 }
 
-export function priorityScheduling(processes: Process[]): PriorityResult[] {
-  const pending = [...processes].sort((a, b) => a.arrival - b.arrival);
-  const result: PriorityResult[] = [];
+export interface TimelineBlock {
+  process: string;
+  start: number;
+  end: number;
+}
+
+export interface PrioritySimulation {
+  results: PriorityResult[];
+  timeline: TimelineBlock[];
+}
+
+export function priorityScheduling(
+  processes: Process[]
+): PrioritySimulation {
+  const pending = [...processes].sort(
+    (a, b) => a.arrival - b.arrival
+  );
+
+  const results: PriorityResult[] = [];
+  const timeline: TimelineBlock[] = [];
+
   let currentTime = 0;
 
-  const getPriority = (process: Process) => process.priority;
-
   while (pending.length) {
-    const available = pending.filter(p => p.arrival <= currentTime);
+    const available = pending.filter(
+      (p) => p.arrival <= currentTime
+    );
+
     const next = available.length
-      ? available.reduce((prev, cur) => (getPriority(cur) < getPriority(prev) ? cur : prev))
+      ? available.reduce((prev, cur) =>
+          cur.priority < prev.priority ? cur : prev
+        )
       : pending[0];
 
-    const index = pending.indexOf(next);
-    pending.splice(index, 1);
+    pending.splice(pending.indexOf(next), 1);
 
     const start = Math.max(currentTime, next.arrival);
+
     const finish = start + next.burst;
+
     const waiting = start - next.arrival;
+
     const turnaround = finish - next.arrival;
 
-    result.push({
+    results.push({
       ...next,
       start,
       finish,
@@ -41,8 +64,17 @@ export function priorityScheduling(processes: Process[]): PriorityResult[] {
       turnaround,
     });
 
+    timeline.push({
+      process: next.id,
+      start,
+      end: finish,
+    });
+
     currentTime = finish;
   }
 
-  return result;
+  return {
+    results,
+    timeline,
+  };
 }

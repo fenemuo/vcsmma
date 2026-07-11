@@ -12,11 +12,31 @@ export interface RoundRobinResult extends Process {
   turnaround: number;
 }
 
-export function roundRobin(processes: Process[], quantum: number): RoundRobinResult[] {
+export interface TimelineBlock {
+  process: string;
+  start: number;
+  end: number;
+}
+
+export interface RoundRobinSimulation {
+  results: RoundRobinResult[];
+  timeline: TimelineBlock[];
+}
+
+export function roundRobin(
+  processes: Process[],
+  quantum: number
+): RoundRobinSimulation {
   const queue = [...processes].sort((a, b) => a.arrival - b.arrival);
-  const remaining = new Map(queue.map(p => [p.id, p.burst]));
+
+  const remaining = new Map(queue.map((p) => [p.id, p.burst]));
+
   const results = new Map<string, RoundRobinResult>();
+
+  const timeline: TimelineBlock[] = [];
+
   let currentTime = 0;
+
   const ready: Process[] = [];
 
   while (queue.length || ready.length) {
@@ -30,9 +50,20 @@ export function roundRobin(processes: Process[], quantum: number): RoundRobinRes
     }
 
     const process = ready.shift()!;
+
     const start = currentTime;
+
     const work = Math.min(quantum, remaining.get(process.id)!);
+
     const finish = start + work;
+
+    // ⭐ This is what feeds the Gantt Chart
+    timeline.push({
+      process: process.id,
+      start,
+      end: finish,
+    });
+
     currentTime = finish;
 
     if (!results.has(process.id)) {
@@ -50,7 +81,10 @@ export function roundRobin(processes: Process[], quantum: number): RoundRobinRes
       results.get(process.id)!.startTimes.push(start);
     }
 
-    remaining.set(process.id, remaining.get(process.id)! - work);
+    remaining.set(
+      process.id,
+      remaining.get(process.id)! - work
+    );
 
     while (queue.length && queue[0].arrival <= currentTime) {
       ready.push(queue.shift()!);
@@ -60,11 +94,18 @@ export function roundRobin(processes: Process[], quantum: number): RoundRobinRes
       ready.push(process);
     } else {
       const procResult = results.get(process.id)!;
+
       procResult.finish = finish;
+
       procResult.turnaround = finish - process.arrival;
-      procResult.waiting = procResult.turnaround - process.burst;
+
+      procResult.waiting =
+        procResult.turnaround - process.burst;
     }
   }
 
-  return Array.from(results.values());
+  return {
+    results: Array.from(results.values()),
+    timeline,
+  };
 }

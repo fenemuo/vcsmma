@@ -54,6 +54,7 @@ export default function SimulatorPage() {
     { id: "P3", size: 3 },
   ]);
   const [results, setResults] = useState<any[] | null>(null);
+  const [timeline, setTimeline] = useState<any[]>([]);
   const inputClass = "rounded border border-slate-700 bg-slate-800 px-2 py-1 text-slate-100 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20";
 
   function switchCategory(category: AlgoCategory) {
@@ -115,30 +116,66 @@ export default function SimulatorPage() {
   }
 
   function run() {
-    let res: any[] = [];
+  console.log("Run clicked");
 
-    if (algoCategory === "cpu") {
-      if (algo === "fcfs") {
-        res = fcfs(processes as any);
-      } else if (algo === "sjf") {
-        res = sjf(processes as any);
-      } else if (algo === "rr") {
-        res = roundRobin(processes as any, quantum);
-      } else if (algo === "priority") {
-        res = priorityScheduling(processes as any);
+  if (algoCategory === "cpu") {
+    switch (algo) {
+      case "fcfs": {
+        const simulation = fcfs(processes as any);
+
+        console.log(simulation);
+
+        setResults(simulation.results);
+        setTimeline(simulation.timeline);
+
+        break;
       }
-    } else {
-      if (algo === "firstFit") {
-        res = firstFit(memoryBlocks, memoryRequests);
-      } else if (algo === "bestFit") {
-        res = bestFit(memoryBlocks, memoryRequests);
-      } else if (algo === "worstFit") {
-        res = worstFit(memoryBlocks, memoryRequests);
+
+      case "sjf":{
+        const simulation = sjf(processes as any);
+
+        setResults(simulation.results);
+        setTimeline(simulation.timeline);
+        break;
+      }
+
+      case "rr":{
+
+        const simulation = roundRobin(processes, quantum);
+
+        setResults(simulation.results);
+
+        setTimeline(simulation.timeline);
+        break;
+      }
+
+      case "priority":{
+
+        const simulation = priorityScheduling(processes as any);
+
+        setResults(simulation.results);
+        setTimeline(simulation.timeline);
+        break;
       }
     }
 
-    setResults(res);
+    return;
   }
+
+  switch (algo) {
+    case "firstFit":
+      setResults(firstFit(memoryBlocks, memoryRequests));
+      break;
+
+    case "bestFit":
+      setResults(bestFit(memoryBlocks, memoryRequests));
+      break;
+
+    case "worstFit":
+      setResults(worstFit(memoryBlocks, memoryRequests));
+      break;
+  }
+}
 
   const averageWaiting = algoCategory === "cpu" && results && results.length
     ? results.reduce((s, r) => s + (r.waiting ?? 0), 0) / results.length
@@ -304,14 +341,13 @@ export default function SimulatorPage() {
                 <div className="mt-4 mb-6">
                   <h4 className="text-sm font-medium mb-3">Gantt Chart</h4>
                   <GanttChart
-                    tasks={results.map((r) => ({
-                      id: r.id,
-                      start: algo === "rr" ? r.startTimes : r.start,
-                      finish: r.finish,
-                      arrival: r.arrival,
-                    }))}
-                    maxTime={Math.max(...results.map((r) => r.finish))}
-                  />
+              blocks={timeline}
+              maxTime={
+              timeline.length
+            ? timeline[timeline.length - 1].end
+            : 0
+    }
+/>
                 </div>
 
                 <div className="mt-2 overflow-x-auto">
