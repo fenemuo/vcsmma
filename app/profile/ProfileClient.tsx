@@ -4,6 +4,8 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { FiEdit2, FiCheck, FiX } from "react-icons/fi";
+import { FaPhone } from "react-icons/fa";
+import { FaMessage } from "react-icons/fa6";
 
 type UserProfile = {
   id: string;
@@ -257,7 +259,7 @@ export default function ProfileClient() {
               <div className="space-y-3 text-sm text-slate-300">
                 {profile.phone ? (
                   <div className="flex items-center gap-3">
-                    <span className="text-lg">📱</span>
+                    <span className="text-lg"><FaPhone /></span>
                     {isEditing ? (
                       <input
                         type="tel"
@@ -272,7 +274,7 @@ export default function ProfileClient() {
                   </div>
                 ) : isEditing ? (
                   <div className="flex items-center gap-3">
-                    <span className="text-lg">📱</span>
+                    <span className="text-lg"><FaPhone /></span>
                     <input
                       type="tel"
                       name="phone"
@@ -285,7 +287,7 @@ export default function ProfileClient() {
                 ) : null}
 
                 <div className="flex items-center gap-3">
-                  <span className="text-lg">✉️</span>
+                  <span className="text-lg"><FaMessage /></span>
                   <span>{profile.email}</span>
                 </div>
               </div>
