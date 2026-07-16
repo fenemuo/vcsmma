@@ -39,8 +39,16 @@ export default function FirstFitPage() {
       />
 
       <StepByStep
-        algorithm="first-fit"
-      />
+  subtitle="The operating system searches memory from the beginning and allocates the first block large enough for the process."
+  steps={[
+    "Receive a memory request from a process.",
+    "Begin searching from the first available memory block.",
+    "Compare each block with the requested size.",
+    "Stop immediately when the first suitable block is found.",
+    "Allocate the process into that block.",
+    "Update the remaining free memory.",
+  ]}
+/>
 
       <ExampleSimulation
         algorithm="first-fit"

@@ -14,7 +14,7 @@ export default function AdvantagesDisadvantages({
 
       {/* Advantages */}
 
-      <div className="rounded-3xl border border-emerald-700/30 bg-emerald-950/20 p-8">
+      <div className="rounded-3xl border border-emerald-700/30 bg-emerald-950/70 p-8">
 
         <h2 className="text-3xl font-bold text-white">
           Advantages
@@ -47,7 +47,7 @@ export default function AdvantagesDisadvantages({
 
       {/* Disadvantages */}
 
-      <div className="rounded-3xl border border-red-700/30 bg-red-950/20 p-8">
+      <div className="rounded-3xl border border-red-700/30 bg-red-950/70 p-8">
 
         <h2 className="text-3xl font-bold text-white">
           Disadvantages

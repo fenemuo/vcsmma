@@ -8,7 +8,7 @@ export default function AlgorithmExplanation({
   paragraphs,
 }: AlgorithmExplanationProps) {
   return (
-    <section className="space-y-8">
+    <section className="space-y-8 bg-slate-950/80 p-8 rounded-xl">
 
       <div>
 
