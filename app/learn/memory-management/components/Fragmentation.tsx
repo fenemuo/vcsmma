@@ -73,7 +73,7 @@ export default function Fragmentation() {
 
             <AlertTriangle className="text-red-400" />
 
-            <h3 className="text-2xl font-bold text-white">
+            <h3 className="text-2xl font-bold text-slate-950">
               External Fragmentation
             </h3>
 

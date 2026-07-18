@@ -4,7 +4,7 @@ export default function ComparisonTable() {
 
       <div className="text-center">
 
-        <h2 className="text-4xl font-bold text-white">
+        <h2 className="text-4xl font-bold text-slate-950">
           Algorithm Comparison
         </h2>
 

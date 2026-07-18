@@ -17,7 +17,7 @@ export default function CommonApplications({
   return (
     <section>
 
-      <h2 className="text-3xl font-bold text-white">
+      <h2 className="text-3xl font-bold text-slate-950">
         Real-World Applications
       </h2>
 

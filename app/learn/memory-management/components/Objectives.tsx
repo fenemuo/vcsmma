@@ -52,7 +52,7 @@ export default function Objectives() {
 
       <div className="text-center">
 
-        <h2 className="text-4xl font-bold text-white">
+        <h2 className="text-4xl font-bold text-slate-950">
           Objectives of Memory Management
         </h2>
 

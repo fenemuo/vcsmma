@@ -8,7 +8,7 @@ export default function InteractiveTips({
   tips,
 }: Props) {
   return (
-    <section className="rounded-3xl bg-amber-950/20 border border-yellow-600/20 p-8">
+    <section className="rounded-3xl bg-amber-950/70 border border-yellow-600/20 p-8">
 
       <div className="flex items-center gap-4">
 

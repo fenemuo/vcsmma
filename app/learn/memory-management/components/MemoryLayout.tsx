@@ -6,7 +6,7 @@ export default function MemoryLayout() {
 
             <div className="text-center">
 
-                <h2 className="text-4xl font-bold text-white">
+                <h2 className="text-4xl font-bold text-slate-950">
                     Typical Main Memory Layout
                 </h2>
 

@@ -5,7 +5,7 @@ import { Search, CheckCircle2, XCircle } from "lucide-react";
 
 const memory = [100, 500, 200, 300, 600];
 
-const REQUESTS = [120, 212, 450, 580];
+const REQUESTS = [120, 212, 450, 580, 50];
 
 
 interface ExampleSimulationProps {
