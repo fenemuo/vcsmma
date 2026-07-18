@@ -29,18 +29,18 @@ const learningPaths = [
     description:
       "Understand Paging, Segmentation, Virtual Memory and Page Replacement algorithms.",
     href: "/learn/memory-management",
-    lessons: 4,
+    lessons: 3,
     color: "from-blue-500 to-cyan-500",
   },
-  {
-    title: "System Implementation",
-    icon: GraduationCap,
-    description:
-      "Explore the architecture, design decisions and implementation of the VCSMMA platform.",
-    href: "/learn/implementation",
-    lessons: 1,
-    color: "from-violet-500 to-purple-500",
-  },
+  // {
+  //   title: "System Implementation",
+  //   icon: GraduationCap,
+  //   description:
+  //     "Explore the architecture, design decisions and implementation of the VCSMMA platform.",
+  //   href: "/learn/implementation",
+  //   lessons: 1,
+  //   color: "from-violet-500 to-purple-500",
+  // },
 ];
 
 const featuredAlgorithms = [
@@ -146,7 +146,7 @@ export default function LearnPage() {
           understand Operating System concepts from beginner to advanced.
         </p>
 
-        <div className="mt-10 grid gap-8 lg:grid-cols-3">
+        <div className="mt-10 grid gap-8 lg:grid-cols-2">
 
           {learningPaths.map((path) => {
             const Icon = path.icon;
