@@ -24,9 +24,9 @@ export function Footer() {
             <Link href="/" className="rounded-2xl bg-slate-900/80 px-3 py-2 text-slate-300 transition hover:bg-slate-800 hover:text-white">
               Home
             </Link>
-            <Link href="/dashboard" className="rounded-2xl bg-slate-900/80 px-3 py-2 text-slate-300 transition hover:bg-slate-800 hover:text-white">
-              Dashboard
-            </Link>
+            {/* <Link href="/dashboard" className="rounded-2xl bg-slate-900/80 px-3 py-2 text-slate-300 transition hover:bg-slate-800 hover:text-white"> */}
+              {/* Dashboard */}
+            {/* </Link> */}
             <Link href="/profile" className="rounded-2xl bg-slate-900/80 px-3 py-2 text-slate-300 transition hover:bg-slate-800 hover:text-white">
               Profile
             </Link>

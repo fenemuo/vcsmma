@@ -7,7 +7,7 @@ import { Logo } from "./Logo";
 import { useSession } from "next-auth/react";
 
 const navItems = [
-  { title: "Dashboard", href: "/dashboard" },
+  // { title: "Dashboard", href: "/dashboard" },
   { title: "Simulators", href: "/simulator" },
   { title: "Learn", href: "/learn" },
   { title: "Quiz", href: "/quiz" },
