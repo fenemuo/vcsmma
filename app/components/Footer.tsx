@@ -20,7 +20,7 @@ export function Footer() {
 
         <div className="flex flex-col gap-3 rounded-3xl border border-slate-800/80 bg-slate-950/80 p-6 text-sm shadow-2xl shadow-slate-950/20">
           <p className="font-semibold text-white">Quick links</p>
-          <div className="grid gap-2 sm:grid-cols-3">
+          <div className="grid gap-2 sm:grid-cols-2">
             <Link href="/" className="rounded-2xl bg-slate-900/80 px-3 py-2 text-slate-300 transition hover:bg-slate-800 hover:text-white">
               Home
             </Link>
