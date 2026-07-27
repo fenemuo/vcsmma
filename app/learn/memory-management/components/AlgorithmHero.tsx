@@ -12,6 +12,7 @@ const gradients = {
   blue: "from-blue-600 via-cyan-500 to-sky-400",
   emerald: "from-emerald-600 via-green-500 to-teal-400",
   purple: "from-purple-600 via-pink-500 to-fuchsia-400",
+  rose: "from-rose-600 via-pink-500 to-fuchsia-400",
 };
 
 export default function AlgorithmHero({
