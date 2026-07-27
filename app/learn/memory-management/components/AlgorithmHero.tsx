@@ -4,7 +4,7 @@ interface AlgorithmHeroProps {
   title: string;
   subtitle: string;
   description: string;
-  color: "blue" | "emerald" | "purple";
+  color: "blue" | "emerald" | "purple" | "rose";
   complexity: string;
 }
 
