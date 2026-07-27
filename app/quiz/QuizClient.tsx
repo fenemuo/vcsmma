@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import questionsData from "./questions.json";
 import QuizIntro from "./QuizIntro";
+import { celebrate } from "@/lib/confetti";
 
 type Difficulty = "Simple" | "Intermediate" | "Hard";
 
@@ -79,6 +80,12 @@ export default function QuizClient() {
   const percentage = totalPossiblePoints > 0 ? Math.round((score / totalPossiblePoints) * 100) : 0;
   const isPassing = percentage >= 60;
   const needsRestart = isComplete && percentage < 60;
+
+  useEffect(() => {
+  if (isPassing) {
+    celebrate();
+  }
+}, [isPassing]);
 
   const pickQuestionForLevel = (level: Difficulty) => {
     const pool = (questionsData as QuizQuestion[]).filter(
@@ -376,11 +383,11 @@ export default function QuizClient() {
             ) : null}
             <p className="text-sm text-slate-400">Score</p>
             <p className="text-2xl font-semibold text-white">{scoreLabel}</p>
-            {isPassing ? (
-              <p className="mt-2 text-[10px] font-semibold uppercase tracking-[0.3em] text-emerald-300">
-                Passed!
-              </p>
-            ) : null}
+           {isPassing && (
+  <p className="mt-2 text-[10px] font-semibold uppercase tracking-[0.3em] text-emerald-300">
+     Passed!
+  </p>
+)}
           </div>
         </div>
 
