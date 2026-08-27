@@ -60,3 +60,31 @@ button:hover {
 	opacity: 0;
 }
 
+@keyframes gantt-block-in {
+	0% {
+		opacity: 0;
+		transform: scaleX(0);
+	}
+	100% {
+		opacity: 1;
+		transform: scaleX(1);
+	}
+}
+
+@keyframes gantt-label-in {
+	0% { opacity: 0; }
+	100% { opacity: 1; }
+}
+
+.gantt-block {
+	animation: gantt-block-in 0.35s ease-out forwards;
+	transform-box: fill-box;
+	transform-origin: left center;
+	opacity: 0;
+}
+
+.gantt-label {
+	animation: gantt-label-in 0.25s ease-out forwards;
+	opacity: 0;
+}
+
