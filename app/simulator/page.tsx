@@ -4,8 +4,10 @@ import { useState } from "react";
 import Link from "next/link";
 import { fcfs } from "@/lib/algorithms/fcfs";
 import { sjf } from "@/lib/algorithms/sjf";
+import { srtf } from "@/lib/algorithms/srtf";
 import { roundRobin } from "@/lib/algorithms/roundRobin";
 import { priorityScheduling } from "@/lib/algorithms/priority";
+import { priorityPreemptive } from "@/lib/algorithms/priorityPreemptive";
 import { GanttChart } from "@/app/components/gantt-chart/GanttChart";
 import { AlgorithmSidebar } from "@/app/components/simulator/AlgorithmSidebar";
 import { CpuCalculationBreakdown } from "@/app/components/simulator/CalculationBreakdown";
@@ -17,7 +19,10 @@ interface Proc {
   priority?: number;
 }
 
-type CpuAlgo = "fcfs" | "sjf" | "rr" | "priority";
+type CpuAlgo = "fcfs" | "sjf" | "srtf" | "rr" | "priority" | "priority-p";
+
+const PREEMPTIVE_ALGOS: CpuAlgo[] = ["rr", "srtf", "priority-p"];
+const PRIORITY_ALGOS: CpuAlgo[] = ["priority", "priority-p"];
 
 export default function SimulatorPage() {
   const [algo, setAlgo] = useState<CpuAlgo>("fcfs");
@@ -77,6 +82,13 @@ export default function SimulatorPage() {
         break;
       }
 
+      case "srtf": {
+        const simulation = srtf(processes as any);
+        setResults(simulation.results);
+        setTimeline(simulation.timeline);
+        break;
+      }
+
       case "rr": {
         const simulation = roundRobin(processes, quantum);
         setResults(simulation.results);
@@ -86,6 +98,13 @@ export default function SimulatorPage() {
 
       case "priority": {
         const simulation = priorityScheduling(processes as any);
+        setResults(simulation.results);
+        setTimeline(simulation.timeline);
+        break;
+      }
+
+      case "priority-p": {
+        const simulation = priorityPreemptive(processes as any);
         setResults(simulation.results);
         setTimeline(simulation.timeline);
         break;
@@ -133,7 +152,7 @@ export default function SimulatorPage() {
                   <input className="w-20 rounded border border-slate-700 bg-slate-800 px-2 py-1 text-slate-100 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" type="number" min={0} value={p.arrival} onChange={(e) => updateProcess(i, "arrival", e.target.value)} />
                   <label className="text-sm">Burst (ms)</label>
                   <input className="w-20 rounded border border-slate-700 bg-slate-800 px-2 py-1 text-slate-100 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" type="number" min={1} value={p.burst} onChange={(e) => updateProcess(i, "burst", e.target.value)} />
-                  {algo === "priority" && (
+                  {PRIORITY_ALGOS.includes(algo) && (
                     <>
                       <label className="text-sm">Priority</label>
                       <input className="w-20 rounded border border-slate-700 bg-slate-800 px-2 py-1 text-slate-100 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" type="number" value={p.priority ?? 1} onChange={(e) => updateProcess(i, "priority", Number(e.target.value))} />
@@ -177,7 +196,7 @@ export default function SimulatorPage() {
                       <th className="pr-4">ID</th>
                       <th className="pr-4">Arrival (ms)</th>
                       <th className="pr-4">Burst (ms)</th>
-                      {algo === "priority" && <th className="pr-4">Priority</th>}
+                      {PRIORITY_ALGOS.includes(algo) && <th className="pr-4">Priority</th>}
                       <th className="pr-4">Start (ms)</th>
                       <th className="pr-4">Finish (ms)</th>
                       <th className="pr-4">Waiting (ms)</th>
@@ -190,8 +209,8 @@ export default function SimulatorPage() {
                         <td className="py-2">{r.id}</td>
                         <td>{r.arrival}</td>
                         <td>{r.burst}</td>
-                        {algo === "priority" && <td>{r.priority ?? "-"}</td>}
-                        <td>{algo === "rr" ? (r.startTimes ? r.startTimes.join(", ") : "-") : r.start ?? "-"}</td>
+                        {PRIORITY_ALGOS.includes(algo) && <td>{r.priority ?? "-"}</td>}
+                        <td>{PREEMPTIVE_ALGOS.includes(algo) ? (r.startTimes ? r.startTimes.join(", ") : "-") : r.start ?? "-"}</td>
                         <td>{r.finish}</td>
                         <td>{r.waiting}</td>
                         <td>{r.turnaround}</td>

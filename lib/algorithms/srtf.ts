@@ -4,64 +4,94 @@ export interface Process {
   burst: number;
 }
 
-export interface SrtfSegment {
-  id: string;
+export interface SrtfResult extends Process {
+  startTimes: number[];
+  finish: number;
+  waiting: number;
+  turnaround: number;
+}
+
+export interface TimelineBlock {
+  process: string;
   start: number;
   end: number;
 }
 
-export interface SrtfResult {
-  id: string;
-  finish: number;
-  waiting: number;
-  turnaround: number;
-  segments: SrtfSegment[];
+export interface SRTFSimulation {
+  results: SrtfResult[];
+  timeline: TimelineBlock[];
 }
 
-export function srtf(processes: Process[]): SrtfResult[] {
-  const pending = [...processes].sort((a, b) => a.arrival - b.arrival);
-  const remaining = new Map(processes.map(p => [p.id, p.burst]));
-  const segments = new Map<string, SrtfSegment[]>();
-  const completed = new Map<string, SrtfResult>();
-  let currentTime = 0;
+/**
+ * Shortest Remaining Time First — the preemptive version of SJF.
+ * At every time unit the scheduler re-evaluates which arrived process
+ * has the least remaining burst time and runs it, preempting the
+ * currently running process if a shorter one arrives.
+ */
+export function srtf(processes: Process[]): SRTFSimulation {
+  const procs = [...processes];
+  const remaining = new Map(procs.map((p) => [p.id, p.burst]));
+  const startTimesMap = new Map<string, number[]>();
+  const finishMap = new Map<string, number>();
+  const timeline: TimelineBlock[] = [];
 
-  while (pending.length || [...remaining.values()].some(t => t > 0)) {
-    const available = processes.filter(p => p.arrival <= currentTime && remaining.get(p.id)! > 0);
+  let currentTime = Math.min(...procs.map((p) => p.arrival));
+  let lastProcessId: string | null = null;
+
+  while (finishMap.size < procs.length) {
+    const available = procs.filter(
+      (p) => p.arrival <= currentTime && remaining.get(p.id)! > 0
+    );
+
     if (!available.length) {
-      currentTime = pending.find(p => remaining.get(p.id)! > 0)!.arrival;
+      currentTime++;
+      lastProcessId = null;
       continue;
     }
 
-    const current = available.reduce((prev, cur) => {
-      const prevRem = remaining.get(prev.id)!;
-      const curRem = remaining.get(cur.id)!;
-      return curRem < prevRem ? cur : prev;
-    });
+    const current = available.reduce((shortest, p) =>
+      remaining.get(p.id)! < remaining.get(shortest.id)! ? p : shortest
+    );
 
-    const start = currentTime;
-    const nextArrival = pending.find(p => p.arrival > currentTime)?.arrival ?? Infinity;
-    const run = Math.min(remaining.get(current.id)!, nextArrival - currentTime);
-    const end = currentTime + run;
-
-    if (!segments.has(current.id)) segments.set(current.id, []);
-    segments.get(current.id)!.push({ id: current.id, start, end });
-
-    currentTime = end;
-    remaining.set(current.id, remaining.get(current.id)! - run);
-
-    if (remaining.get(current.id)! === 0) {
-      const finish = currentTime;
-      const turnaround = finish - current.arrival;
-      const waiting = turnaround - current.burst;
-      completed.set(current.id, {
-        id: current.id,
-        finish,
-        waiting,
-        turnaround,
-        segments: segments.get(current.id)!,
+    if (current.id === lastProcessId && timeline.length) {
+      timeline[timeline.length - 1].end += 1;
+    } else {
+      timeline.push({
+        process: current.id,
+        start: currentTime,
+        end: currentTime + 1,
       });
+      startTimesMap.set(current.id, [
+        ...(startTimesMap.get(current.id) ?? []),
+        currentTime,
+      ]);
+    }
+
+    remaining.set(current.id, remaining.get(current.id)! - 1);
+    currentTime++;
+    lastProcessId = current.id;
+
+    if (remaining.get(current.id) === 0) {
+      finishMap.set(current.id, currentTime);
     }
   }
 
-  return Array.from(completed.values());
+  const results: SrtfResult[] = procs.map((p) => {
+    const finish = finishMap.get(p.id)!;
+    const turnaround = finish - p.arrival;
+    const waiting = turnaround - p.burst;
+
+    return {
+      ...p,
+      startTimes: startTimesMap.get(p.id) ?? [],
+      finish,
+      waiting,
+      turnaround,
+    };
+  });
+
+  return {
+    results,
+    timeline,
+  };
 }

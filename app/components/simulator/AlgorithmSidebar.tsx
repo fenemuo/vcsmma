@@ -1,6 +1,6 @@
 "use client";
 
-type CpuAlgo = "fcfs" | "sjf" | "rr" | "priority";
+type CpuAlgo = "fcfs" | "sjf" | "srtf" | "rr" | "priority" | "priority-p";
 
 interface AlgorithmSidebarProps {
   algo: CpuAlgo;
@@ -10,8 +10,10 @@ interface AlgorithmSidebarProps {
 const cpuAlgorithms: { value: CpuAlgo; label: string; hint: string }[] = [
   { value: "fcfs", label: "FCFS", hint: "First Come First Served" },
   { value: "sjf", label: "SJF", hint: "Shortest Job First" },
+  { value: "srtf", label: "SRTF", hint: "Preemptive SJF — shortest remaining time" },
   { value: "rr", label: "Round Robin", hint: "Fixed time quantum" },
   { value: "priority", label: "Priority", hint: "Lowest number = highest priority" },
+  { value: "priority-p", label: "Priority (Preemptive)", hint: "Preempts on higher-priority arrival" },
 ];
 
 export function AlgorithmSidebar({ algo, onSelect }: AlgorithmSidebarProps) {
