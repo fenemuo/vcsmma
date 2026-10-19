@@ -45,7 +45,14 @@ export function AlgorithmSidebar({ algo, onSelect }: AlgorithmSidebarProps) {
         </nav>
       </div>
 
-      <div className="border-t border-slate-800 pt-4">
+      <div className="space-y-2 border-t border-slate-800 pt-4">
+        <p className="text-xs text-slate-500">
+          Looking for paging?{" "}
+          <a href="/simulator/paging" className="text-indigo-400 hover:text-indigo-300 underline">
+            Open the paging simulator
+          </a>
+          .
+        </p>
         <p className="text-xs text-slate-500">
           Looking for memory allocation?{" "}
           <a href="/learn/memory-management" className="text-indigo-400 hover:text-indigo-300 underline">

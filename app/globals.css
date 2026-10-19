@@ -88,3 +88,19 @@ button:hover {
 	opacity: 0;
 }
 
+
+@keyframes paging-arrow-draw {
+	0% { stroke-dashoffset: 1; }
+	100% { stroke-dashoffset: 0; }
+}
+
+.paging-arrow {
+	stroke-dasharray: 1;
+	stroke-dashoffset: 1;
+	animation: paging-arrow-draw 0.6s ease-out forwards;
+}
+
+.paging-step-in {
+	animation: gantt-label-in 0.3s ease-out forwards;
+	opacity: 0;
+}
